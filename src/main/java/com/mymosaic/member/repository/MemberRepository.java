@@ -1,6 +1,7 @@
 package com.mymosaic.member.repository;
 
 import com.mymosaic.member.domain.Member;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @Repository
 public class MemberRepository {
 
@@ -18,6 +20,7 @@ public class MemberRepository {
     public void save(Member member){
         member.setId(++sequence);
         store.put(member.getId(), member);
+        log.info("save member : {}", member);
     }
 
     public Member findById(Long id){
