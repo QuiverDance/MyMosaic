@@ -1,10 +1,13 @@
 package com.mymosaic.member.controller;
 
+import com.mymosaic.common.constant.SessionConst;
 import com.mymosaic.member.dto.LoginForm;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.service.LoginService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +32,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("form") LoginForm form,
                         BindingResult bindingResult,
-                        HttpServletResponse response){
+                        HttpServletRequest request){
         if(bindingResult.hasErrors()){
             return "login/loginForm";
         }
@@ -40,20 +43,21 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        /*세션 쿠키 생성*/
-        Cookie idCookie = new Cookie("memberId", String.valueOf(member.getId()));
-        response.addCookie(idCookie);
+        /*기존 세션 반환 없으면 새로 생성(default)*/
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 
         log.info("login success : {}", member.getLoginId());
         return "redirect:/";
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response){
+    public String logout(HttpServletRequest request){
 
-        Cookie cookie = new Cookie("memberId", null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        /*세션이 없어도 새로 생성 안함*/
+        HttpSession session = request.getSession(false);
+        if(session != null)
+            session.invalidate();
 
         return "redirect:/";
     }
