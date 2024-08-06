@@ -9,10 +9,14 @@ public class MemberDto {
     private Long id;
     private String loginId;
     private String name;
+    private String profileUrl;
+    private String introduction;
 
     public MemberDto(Member member){
         id = member.getId();
         loginId = member.getLoginId();
         name = member.getName();
+        profileUrl = member.getProfileUrl();
+        introduction = member.getIntroduction();
     }
 }

@@ -1,15 +1,15 @@
 package com.mymosaic.member.controller;
 
+import com.mymosaic.common.constant.SessionConst;
+import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.dto.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,5 +29,16 @@ public class MemberController {
         }
         memberService.registerMember(form);
         return "redirect:/";
+    }
+
+    @GetMapping("/myInfo")
+    public String getMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
+                                Model model){
+        if(member == null){
+            return "redirect:/login/loginForm";
+        }
+
+        model.addAttribute("member", member);
+        return "members/myInfo";
     }
 }
