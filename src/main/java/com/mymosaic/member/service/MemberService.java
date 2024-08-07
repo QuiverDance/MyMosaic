@@ -1,6 +1,7 @@
 package com.mymosaic.member.service;
 
 import com.mymosaic.member.dto.MemberDto;
+import com.mymosaic.member.dto.MemberInfoForm;
 import com.mymosaic.member.dto.RegisterForm;
 import com.mymosaic.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,9 @@ public class MemberService {
 
     public MemberDto findMemberById(Long id){
         return new MemberDto(memberRepository.findById(id));
+    }
+
+    public MemberDto updateMemberInfo(Long id, MemberInfoForm form){
+        return new MemberDto(memberRepository.update(id, form));
     }
 }

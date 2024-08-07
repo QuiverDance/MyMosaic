@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h2>회원 정보 수정</h2>
+    </div>
+    <h4 class="mb-3">수정 정보 입력</h4>
+    <form action="" th:action th:object="${form}" method="post">
+        <div>
+            <h5>프로필</h5>
+            <input type="text" id="imgUrl" th:field="*{profileUrl}"
+                   class="form-control">
+        </div>
+        <div>
+            <h5>소개</h5>
+            <input type="text" id="introduction" th:field="*{introduction}"
+                   class="form-control">
+        </div>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="btn" type="submit">수정 완료</button>
+            </div>
+            <div class="col">
+                <button class="btn"
+                        th:onclick="|location.href='@{/members/myInfo}'|"
+                        type="button">
+                    취소
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

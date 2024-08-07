@@ -14,7 +14,15 @@
         <div class="col">
             <h4 th:text="|${member.introduction}|">사용자 소개</h4>
         </div>
+
+        <div class="col">
+            <button class="btn" type="button"
+                    th:onclick="|location.href='@{/members/update}'|">
+                수정
+            </button>
+        </div>
     </div>
+
 </div>
 </body>
 </html>

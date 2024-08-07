@@ -1,12 +1,12 @@
 package com.mymosaic.member.domain;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Setter

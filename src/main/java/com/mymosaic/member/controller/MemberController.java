@@ -2,6 +2,7 @@ package com.mymosaic.member.controller;
 
 import com.mymosaic.common.constant.SessionConst;
 import com.mymosaic.member.dto.MemberDto;
+import com.mymosaic.member.dto.MemberInfoForm;
 import com.mymosaic.member.dto.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -33,12 +34,29 @@ public class MemberController {
 
     @GetMapping("/myInfo")
     public String getMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
-                                Model model){
+                            Model model){
         if(member == null){
-            return "redirect:/login/loginForm";
+            return "home";
         }
 
         model.addAttribute("member", member);
+        return "members/myInfo";
+    }
+
+    @GetMapping("/update")
+    public String addForm(@ModelAttribute("form") MemberInfoForm form) {
+        return "members/updateMemberForm";
+    }
+    @PostMapping("/update")
+    public String updateMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
+                               @ModelAttribute("form") MemberInfoForm form, Model model){
+        if(member == null){
+            return "home";
+        }
+
+        MemberDto updatedMember = memberService.updateMemberInfo(member.getId(), form);
+        System.out.println("updated member : " + updatedMember);
+        model.addAttribute("member", updatedMember);
         return "members/myInfo";
     }
 }
