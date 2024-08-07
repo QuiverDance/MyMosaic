@@ -47,7 +47,7 @@ public class MemberController {
     public String addForm(@ModelAttribute("form") MemberInfoForm form) {
         return "members/updateMemberForm";
     }
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public String updateMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
                                @ModelAttribute("form") MemberInfoForm form, Model model){
         if(member == null){

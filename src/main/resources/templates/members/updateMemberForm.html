@@ -9,7 +9,7 @@
         <h2>회원 정보 수정</h2>
     </div>
     <h4 class="mb-3">수정 정보 입력</h4>
-    <form action="" th:action th:object="${form}" method="post">
+    <form action="" th:action th:object="${form}" th:method="patch">
         <div>
             <h5>프로필</h5>
             <input type="text" id="imgUrl" th:field="*{profileUrl}"
