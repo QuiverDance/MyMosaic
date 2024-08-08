@@ -1,8 +1,7 @@
 package com.mymosaic.member.controller;
 
-import com.mymosaic.common.constant.SessionConst;
 import com.mymosaic.member.dto.MemberDto;
-import com.mymosaic.member.dto.MemberInfoForm;
+import com.mymosaic.member.dto.MemberInfoEditForm;
 import com.mymosaic.member.dto.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -32,31 +31,28 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/myInfo")
-    public String getMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
-                            Model model){
-        if(member == null){
-            return "home";
-        }
-
+    @GetMapping("/{memberId}")
+    public String MemberInfo(@PathVariable("memberId") Long memberId, Model model){
+        MemberDto member = memberService.findMemberById(memberId);
         model.addAttribute("member", member);
         return "members/myInfo";
     }
 
-    @GetMapping("/update")
-    public String addForm(@ModelAttribute("form") MemberInfoForm form) {
-        return "members/updateMemberForm";
+    @GetMapping("/{memberId}/edit")
+    public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) {
+        MemberDto member = memberService.findMemberById(memberId);
+        model.addAttribute("member", member);
+        return "members/editMemberForm";
     }
-    @PatchMapping("/update")
-    public String updateMyInfo(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
-                               @ModelAttribute("form") MemberInfoForm form, Model model){
-        if(member == null){
-            return "home";
-        }
 
-        MemberDto updatedMember = memberService.updateMemberInfo(member.getId(), form);
-        System.out.println("updated member : " + updatedMember);
+    @PatchMapping("/{memberId}/edit")
+    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form, Model model){
+
+        MemberDto updatedMember = memberService.updateMemberInfo(memberId, form);
+
+        MemberDto findMember = memberService.findMemberById(memberId);
+        System.out.println("find member intro : " + findMember.getIntroduction());
         model.addAttribute("member", updatedMember);
-        return "members/myInfo";
+        return "redirect:/members/{memberId}";
     }
 }

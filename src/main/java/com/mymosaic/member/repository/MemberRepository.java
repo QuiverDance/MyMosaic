@@ -1,8 +1,7 @@
 package com.mymosaic.member.repository;
 
 import com.mymosaic.member.domain.Member;
-import com.mymosaic.member.dto.MemberInfoForm;
-import com.mymosaic.member.dto.RegisterForm;
+import com.mymosaic.member.dto.MemberInfoEditForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -25,14 +24,14 @@ public class MemberRepository {
         log.info("save member : {}", member);
     }
 
-    public Member update(Long id, MemberInfoForm form){
+    public Member update(Long id, MemberInfoEditForm form){
         Member member = findById(id);
         if(!form.getProfileUrl().isEmpty())
             member.updateProfileImgUrl(form.getProfileUrl());
         if(!form.getIntroduction().isEmpty())
             member.updateIntroduction(form.getIntroduction());
 
-        store.put(member.getId(), member);
+//        store.put(member.getId(), member);
         log.info("update member : {}", member);
         return member;
     }
