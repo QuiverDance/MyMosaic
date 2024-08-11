@@ -21,7 +21,7 @@ public class MemberService {
         return new MemberDto(memberRepository.findById(id));
     }
 
-    public MemberDto updateMemberInfo(Long id, MemberInfoEditForm form){
-        return new MemberDto(memberRepository.update(id, form));
+    public void updateMemberInfo(Long id, MemberInfoEditForm form){
+        memberRepository.update(id, form);
     }
 }

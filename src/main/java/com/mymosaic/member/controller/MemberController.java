@@ -63,13 +63,8 @@ public class MemberController {
      * 전달한 form을 바탕으로 회원 정보 수정
      * */
     @PatchMapping("/{memberId}/edit")
-    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form, Model model){
-
-        MemberDto updatedMember = memberService.updateMemberInfo(memberId, form);
-
-        MemberDto findMember = memberService.findMemberById(memberId);
-        System.out.println("find member intro : " + findMember.getIntroduction());
-        model.addAttribute("member", updatedMember);
+    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form){
+        memberService.updateMemberInfo(memberId, form);
         return "redirect:/members/{memberId}";
     }
 }

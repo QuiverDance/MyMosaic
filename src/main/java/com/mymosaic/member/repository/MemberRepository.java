@@ -30,7 +30,7 @@ public class MemberRepository {
     /*
     * id에 해당하는 Member 정보 수정
     * */
-    public Member update(Long id, MemberInfoEditForm form){
+    public void update(Long id, MemberInfoEditForm form){
         Member member = findById(id);
         
         /*프로필 이미지와 소개글 수정*/
@@ -40,7 +40,6 @@ public class MemberRepository {
             member.updateIntroduction(form.getIntroduction());
 
         log.info("update member : {}", member);
-        return member;
     }
 
     /*
