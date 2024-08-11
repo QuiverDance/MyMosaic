@@ -14,9 +14,9 @@ public class DummyMemberInit {
 
     @PostConstruct
     public void init(){
-        Member member1 = new Member("test1", "테스터1", "123");
-        Member member2 = new Member("test2", "테스터2", "123");
-        Member member3 = new Member("test3", "테스터3", "123");
+        Member member1 = new Member("test1@aaa.com", "테스터1", "qwer123!");
+        Member member2 = new Member("test2@aaa.com", "테스터2", "qwer123!");
+        Member member3 = new Member("test3@aaa.com", "테스터3", "qwer123!");
 
         member1.updateProfileImgUrl("/members/profile/테스터1.png");
         member2.updateProfileImgUrl("/members/profile/테스터2.png");
