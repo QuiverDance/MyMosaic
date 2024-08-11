@@ -18,10 +18,17 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    /*
+     * 회원가입 화면 요청
+     * */
     @GetMapping("/add")
     public String addForm(@ModelAttribute("form") RegisterForm form) {
         return "members/addMemberForm";
     }
+
+    /*
+     * 전달한 회원가입 form을 바탕으로 회원 정보 저장
+     * */
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute("form") RegisterForm form, BindingResult result) {
         if (result.hasErrors()) {
@@ -31,6 +38,10 @@ public class MemberController {
         return "redirect:/";
     }
 
+
+    /*
+     * 회원 정보 화면 요청
+     * */
     @GetMapping("/{memberId}")
     public String MemberInfo(@PathVariable("memberId") Long memberId, Model model){
         MemberDto member = memberService.findMemberById(memberId);
@@ -38,6 +49,9 @@ public class MemberController {
         return "members/myInfo";
     }
 
+    /*
+     * 회원 수정 화면 요청
+     * */
     @GetMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) {
         MemberDto member = memberService.findMemberById(memberId);
@@ -45,6 +59,9 @@ public class MemberController {
         return "members/editMemberForm";
     }
 
+    /*
+     * 전달한 form을 바탕으로 회원 정보 수정
+     * */
     @PatchMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form, Model model){
 

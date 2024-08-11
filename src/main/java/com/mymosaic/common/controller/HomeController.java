@@ -22,10 +22,11 @@ public class HomeController {
     public String home(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) MemberDto member,
                        Model model){
 
+        /*세션에 member가 없는 경우 -> 일반 home 화면*/
         if(member == null){
             return "home";
         }
-
+        /*세션에 member가 있는 경우 -> 로그인 home 화면*/
         model.addAttribute("member", member);
         return "loginHome";
     }

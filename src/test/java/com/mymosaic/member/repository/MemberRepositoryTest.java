@@ -16,11 +16,13 @@ class MemberRepositoryTest {
 
     @Test
     void update() {
+        //given
         Member member1 = new Member("test1", "tester1", "123");
         Member member2 = new Member("test2", "tester2", "123");
         memberRepository.save(member1);
         memberRepository.save(member2);
 
+        //when
         Long id = member1.getId();
         MemberInfoEditForm updateParam = new MemberInfoEditForm();
         updateParam.setProfileUrl("/members/profile/tester1.png");
@@ -30,6 +32,7 @@ class MemberRepositoryTest {
 
         Member findMember = memberRepository.findById(id);
 
+        //then
         assertThat(findMember.getProfileUrl()).isEqualTo(updateParam.getProfileUrl());
         assertThat(findMember.getIntroduction()).isEqualTo(updateParam.getIntroduction());
     }

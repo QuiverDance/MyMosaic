@@ -24,19 +24,27 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    /*
+    * 로그인 화면 요청
+    * */
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("form")LoginForm form){
         return "login/loginForm";
     }
 
+    /*
+    * 전달받은 form으로 로그인 시도
+    * */
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("form") LoginForm form,
                         BindingResult bindingResult,
                         HttpServletRequest request){
+        /*입력 값에 문제가 있는 경우 -> 다시 로그인 화면 불러오기*/
         if(bindingResult.hasErrors()){
             return "login/loginForm";
         }
 
+        /*입력 로그인 아이디와 비밀번호로 로그인 시도, 실패시 null 반환*/
         MemberDto member = loginService.login(form.getLoginId(), form.getPassword());
         if(member == null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
@@ -57,7 +65,7 @@ public class LoginController {
         /*세션이 없어도 새로 생성 안함*/
         HttpSession session = request.getSession(false);
         if(session != null)
-            session.invalidate();
+            session.invalidate(); //세션 만료
 
         return "redirect:/";
     }

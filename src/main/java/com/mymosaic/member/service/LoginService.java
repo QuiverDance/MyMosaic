@@ -16,12 +16,10 @@ public class LoginService {
 
     public MemberDto login(String loginId, String password){
         /*
-        Optional<Member> member = memberRepository.findByLoginId(loginId);
-        if(member.isPresent() && member.get().getPassword().equals(password)){
-            return new MemberDto(member.get());
-        }
-        else return null; */
-
+        * memberRepository 에서 loginId 에 해당하는 member 가져오기 ->
+        * 해당 member의 비밀번호와 전달한 비밀번호가 같은지 확인
+        * 비밀번호가 다른 경우 member = null
+        * */
         Member member = memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
