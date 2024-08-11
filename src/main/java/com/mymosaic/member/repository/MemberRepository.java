@@ -31,7 +31,6 @@ public class MemberRepository {
         if(!form.getIntroduction().isEmpty())
             member.updateIntroduction(form.getIntroduction());
 
-//        store.put(member.getId(), member);
         log.info("update member : {}", member);
         return member;
     }
