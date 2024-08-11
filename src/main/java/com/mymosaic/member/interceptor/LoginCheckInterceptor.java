@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
     private final MemberService memberService;
-    private final String MEMBER_ID_CONST = "memberId";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
