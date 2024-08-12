@@ -1,5 +1,8 @@
 package com.mymosaic.member.controller;
 
+import com.mymosaic.common.constant.FileDirConst;
+import com.mymosaic.common.file.FileStore;
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.dto.MemberInfoEditForm;
 import com.mymosaic.member.dto.RegisterForm;
@@ -12,12 +15,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
 
     private final MemberService memberService;
+    private final FileStore fileStore;
 
     /*
      * 회원가입 화면 요청
@@ -70,7 +76,13 @@ public class MemberController {
      * 전달한 form을 바탕으로 회원 정보 수정
      * */
     @PatchMapping("/{memberId}/edit")
-    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form){
+    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form) throws IOException {
+
+        UploadFile attachFile = fileStore.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
+        if(attachFile != null)
+            form.setProfileUrl(attachFile.getStoreFileName());
+
+        //데이터베이스에 저장
         memberService.updateMemberInfo(memberId, form);
         return "redirect:/members/{memberId}";
     }

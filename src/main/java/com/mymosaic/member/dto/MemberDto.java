@@ -11,6 +11,7 @@ public class MemberDto {
     private String name;
     private String profileUrl;
     private String introduction;
+    private String profileImg;
 
     public MemberDto(Member member){
         id = member.getId();

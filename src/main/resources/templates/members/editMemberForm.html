@@ -9,17 +9,11 @@
         <h2>회원 정보 수정</h2>
     </div>
     <h4 class="mb-3">수정 정보 입력</h4>
-    <form action="" th:action th:object="${member}" th:method="patch">
-        <div>
-            <h5>프로필</h5>
-            <input type="text" id="imgUrl" th:field="*{profileUrl}"
-                   class="form-control">
-        </div>
-        <div>
-            <h5>소개</h5>
-            <input type="text" id="introduction" th:field="*{introduction}"
-                   class="form-control">
-        </div>
+    <form action="" th:action th:method="patch" enctype="multipart/form-data">
+        <ul>
+            <li>첨부파일<input type="file" name="profileImg" ></li>
+            <li>소개 <input type="text" name="introduction" th:field="|${member.introduction}|"></li>
+        </ul>
 
         <hr class="my-4">
         <div class="row">
