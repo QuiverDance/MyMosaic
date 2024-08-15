@@ -1,4 +1,4 @@
-package com.mymosaic.member.dto;
+package com.mymosaic.member.web;
 
 import com.mymosaic.member.domain.Member;
 import jakarta.validation.constraints.NotEmpty;

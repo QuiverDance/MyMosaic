@@ -1,4 +1,4 @@
-package com.mymosaic.member.dto;
+package com.mymosaic.member.web;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
