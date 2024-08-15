@@ -14,8 +14,8 @@ import java.util.UUID;
 @Component
 public class FileStore {
 
-    public String loadImage(String fileDir, String filename) throws IOException {
-        File file = new File(fileDir + filename);
+    public String loadImage(String filePath) throws IOException {
+        File file = new File(filePath);
 
         byte[] bytes = FileCopyUtils.copyToByteArray(file);
         return Base64.getEncoder().encodeToString(bytes);
@@ -53,7 +53,7 @@ public class FileStore {
         String originalFilename = multipartFile.getOriginalFilename(); //파일 이름 가져오기
         String storeFileName = createStoreFileName(originalFilename); //저장할 파일 이름 생성
         multipartFile.transferTo(new File(getFullPath(fileDir, storeFileName))); //해당 경로에 파일 저장
-        return new UploadFile(originalFilename, storeFileName); //저장한 파일 이름 반환
+        return new UploadFile(originalFilename, storeFileName, getFullPath(fileDir, storeFileName)); //저장한 파일 이름 반환
     }
 
     /*

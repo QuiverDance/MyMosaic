@@ -1,12 +1,10 @@
 package com.mymosaic.member.controller;
 
 import com.mymosaic.common.constant.SessionConst;
-import com.mymosaic.member.dto.LoginForm;
+import com.mymosaic.member.web.LoginForm;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.service.LoginService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

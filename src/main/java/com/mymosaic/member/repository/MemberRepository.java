@@ -1,8 +1,8 @@
 package com.mymosaic.member.repository;
 
-import com.mymosaic.common.constant.FileNameConst;
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.domain.Member;
-import com.mymosaic.member.dto.MemberInfoEditForm;
+import com.mymosaic.member.dto.MemberEditParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -31,17 +31,14 @@ public class MemberRepository {
     /*
     * id에 해당하는 Member 정보 수정
     * */
-    public void update(Long id, MemberInfoEditForm form){
+    public void update(Long id, MemberEditParam param){
         Member member = findById(id);
         
         /*프로필 이미지와 소개글 수정*/
-        if(form.getProfileImgName().isEmpty())
-            member.updateProfileImgUrl(FileNameConst.PROFILE_IMG_DEFAULT);
-        else
-            member.updateProfileImgUrl(form.getProfileImgName());
-
-        if(!form.getIntroduction().isEmpty())
-            member.updateIntroduction(form.getIntroduction());
+        if(param.getUploadFile() != null)
+            member.updateProfile(param.getUploadFile());
+        if(param.getIntroduction() != null)
+            member.updateIntroduction(param.getIntroduction());
 
         log.info("update member : {}", member);
     }

@@ -4,8 +4,9 @@ import com.mymosaic.common.constant.FileDirConst;
 import com.mymosaic.common.file.FileStore;
 import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.dto.MemberDto;
-import com.mymosaic.member.dto.MemberInfoEditForm;
-import com.mymosaic.member.dto.RegisterForm;
+import com.mymosaic.member.dto.MemberEditParam;
+import com.mymosaic.member.web.MemberInfoEditForm;
+import com.mymosaic.member.web.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -62,8 +63,8 @@ public class MemberController {
     public String MemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
-        member.setProfileImg(fileStore.loadImage(FileDirConst.MEMBER_PROFILE_DIR, member.getProfileImgName()));
-        log.info(fileStore.extractExt(member.getProfileImgName()));
+        member.setProfileImg(fileStore.loadImage(member.getProfile().getFilePath()));
+        log.info(member.getProfile().extractExt());
         model.addAttribute("member", member);
         return "members/myInfo";
     }
@@ -74,7 +75,7 @@ public class MemberController {
     @GetMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
-        member.setProfileImg(fileStore.loadImage(FileDirConst.MEMBER_PROFILE_DIR, member.getProfileImgName()));
+        member.setProfileImg(fileStore.loadImage(member.getProfile().getFilePath()));
 
         model.addAttribute("member", member);
         return "members/editMemberForm";
@@ -87,11 +88,8 @@ public class MemberController {
     public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form) throws IOException {
 
         UploadFile attachFile = fileStore.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
-        if(attachFile != null)
-            form.setProfileImgName(attachFile.getStoreFileName());
-
-        //데이터베이스에 저장
-        memberService.updateMemberInfo(memberId, form);
+        //데이터베이스에 저장 (nullable)
+        memberService.updateMemberInfo(memberId, new MemberEditParam(form.getIntroduction(), attachFile));
         return "redirect:/members/{memberId}";
     }
 }

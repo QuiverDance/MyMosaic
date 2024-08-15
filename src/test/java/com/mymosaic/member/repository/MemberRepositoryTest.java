@@ -1,7 +1,8 @@
 package com.mymosaic.member.repository;
 
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.domain.Member;
-import com.mymosaic.member.dto.MemberInfoEditForm;
+import com.mymosaic.member.dto.MemberEditParam;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,16 +45,15 @@ class MemberRepositoryTest {
 
         //when
         Long id = member1.getId();
-        MemberInfoEditForm updateParam = new MemberInfoEditForm();
-        updateParam.setProfileImgName("/members/profile/tester1.png");
-        updateParam.setIntroduction("Hello world");
+        UploadFile uploadFile = new UploadFile("test.png", "test.png", "/testPath/test.png");
+        MemberEditParam param = new MemberEditParam("Hello world", uploadFile);
 
-        memberRepository.update(id, updateParam);
+        memberRepository.update(id, param);
 
         Member findMember = memberRepository.findById(id);
 
         //then
-        assertThat(findMember.getProfileImgName()).isEqualTo(updateParam.getProfileImgName());
-        assertThat(findMember.getIntroduction()).isEqualTo(updateParam.getIntroduction());
+        assertThat(findMember.getProfile().getFilePath()).isEqualTo(uploadFile.getFilePath());
+        assertThat(findMember.getIntroduction()).isEqualTo(param.getIntroduction());
     }
 }

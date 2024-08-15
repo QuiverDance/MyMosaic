@@ -2,8 +2,8 @@ package com.mymosaic.member.service;
 
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.dto.MemberDto;
-import com.mymosaic.member.dto.MemberInfoEditForm;
-import com.mymosaic.member.dto.RegisterForm;
+import com.mymosaic.member.dto.MemberEditParam;
+import com.mymosaic.member.web.RegisterForm;
 import com.mymosaic.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class MemberService {
         return findMember.map(MemberDto::new).orElse(null);
     }
 
-    public void updateMemberInfo(Long id, MemberInfoEditForm form){
-        memberRepository.update(id, form);
+    public void updateMemberInfo(Long id, MemberEditParam param){
+        memberRepository.update(id, param);
     }
 }
