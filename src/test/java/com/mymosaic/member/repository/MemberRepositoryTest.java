@@ -45,7 +45,7 @@ class MemberRepositoryTest {
         //when
         Long id = member1.getId();
         MemberInfoEditForm updateParam = new MemberInfoEditForm();
-        updateParam.setProfileUrl("/members/profile/tester1.png");
+        updateParam.setProfileImgName("/members/profile/tester1.png");
         updateParam.setIntroduction("Hello world");
 
         memberRepository.update(id, updateParam);
@@ -53,7 +53,7 @@ class MemberRepositoryTest {
         Member findMember = memberRepository.findById(id);
 
         //then
-        assertThat(findMember.getProfileUrl()).isEqualTo(updateParam.getProfileUrl());
+        assertThat(findMember.getProfileImgName()).isEqualTo(updateParam.getProfileImgName());
         assertThat(findMember.getIntroduction()).isEqualTo(updateParam.getIntroduction());
     }
 }

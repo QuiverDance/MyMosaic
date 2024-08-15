@@ -1,5 +1,6 @@
 package com.mymosaic.member.domain;
 
+import com.mymosaic.common.constant.FileNameConst;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Member {
     private String name;
     @NotEmpty
     private String password;
-    private String profileUrl = "";
+    private String profileImgName = FileNameConst.PROFILE_IMG_DEFAULT;
     private String introduction = "";
 
     public Member(String loginId, String name, String password){
@@ -28,7 +29,7 @@ public class Member {
     }
 
     public void updateProfileImgUrl(String profileImgUrl){
-        this.profileUrl = profileImgUrl;
+        this.profileImgName = profileImgUrl;
     }
 
     public void updateIntroduction(String introduction){

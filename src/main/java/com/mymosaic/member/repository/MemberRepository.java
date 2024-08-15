@@ -1,5 +1,6 @@
 package com.mymosaic.member.repository;
 
+import com.mymosaic.common.constant.FileNameConst;
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.dto.MemberInfoEditForm;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,11 @@ public class MemberRepository {
         Member member = findById(id);
         
         /*프로필 이미지와 소개글 수정*/
-        if(!form.getProfileUrl().isEmpty())
-            member.updateProfileImgUrl(form.getProfileUrl());
+        if(form.getProfileImgName().isEmpty())
+            member.updateProfileImgUrl(FileNameConst.PROFILE_IMG_DEFAULT);
+        else
+            member.updateProfileImgUrl(form.getProfileImgName());
+
         if(!form.getIntroduction().isEmpty())
             member.updateIntroduction(form.getIntroduction());
 
