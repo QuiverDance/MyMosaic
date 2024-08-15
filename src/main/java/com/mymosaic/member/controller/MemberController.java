@@ -75,9 +75,12 @@ public class MemberController {
     @GetMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
-        member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
 
-        model.addAttribute("member", member);
+        MemberInfoEditForm form = new MemberInfoEditForm();
+        form.setIntroduction(member.getIntroduction());
+
+        model.addAttribute("id", member.getId());
+        model.addAttribute("form", form);
         return "members/editMemberForm";
     }
 
@@ -85,7 +88,14 @@ public class MemberController {
      * 전달한 form을 바탕으로 회원 정보 수정
      * */
     @PatchMapping("/{memberId}/edit")
-    public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form) throws IOException {
+    public String editMemberInfo(@PathVariable("memberId") Long memberId,
+                                 @Valid @ModelAttribute("form") MemberInfoEditForm form,
+                                 BindingResult result,
+                                 Model model) throws IOException {
+        if (result.hasErrors()) {
+            model.addAttribute("id", memberId);
+            return "members/editMemberForm";
+        }
 
         UploadFile attachFile = fileManger.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
         //데이터베이스에 저장 (nullable)
