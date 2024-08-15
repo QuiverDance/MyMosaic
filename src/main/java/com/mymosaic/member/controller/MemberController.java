@@ -1,7 +1,7 @@
 package com.mymosaic.member.controller;
 
 import com.mymosaic.common.constant.FileDirConst;
-import com.mymosaic.common.file.FileStore;
+import com.mymosaic.common.file.FileManger;
 import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.dto.MemberEditParam;
@@ -27,7 +27,7 @@ public class MemberController {
 
     private static final Logger log = LoggerFactory.getLogger(MemberController.class);
     private final MemberService memberService;
-    private final FileStore fileStore;
+    private final FileManger fileManger;
 
     /*
      * 회원가입 화면 요청
@@ -63,7 +63,7 @@ public class MemberController {
     public String MemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
-        member.setProfileImg(fileStore.loadImage(member.getProfile().getFilePath()));
+        member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
         log.info(member.getProfile().extractExt());
         model.addAttribute("member", member);
         return "members/myInfo";
@@ -75,7 +75,7 @@ public class MemberController {
     @GetMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
-        member.setProfileImg(fileStore.loadImage(member.getProfile().getFilePath()));
+        member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
 
         model.addAttribute("member", member);
         return "members/editMemberForm";
@@ -87,7 +87,7 @@ public class MemberController {
     @PatchMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId, @ModelAttribute("member") MemberInfoEditForm form) throws IOException {
 
-        UploadFile attachFile = fileStore.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
+        UploadFile attachFile = fileManger.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
         //데이터베이스에 저장 (nullable)
         memberService.updateMemberInfo(memberId, new MemberEditParam(form.getIntroduction(), attachFile));
         return "redirect:/members/{memberId}";

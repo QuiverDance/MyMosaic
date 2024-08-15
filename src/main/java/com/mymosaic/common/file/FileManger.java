@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class FileStore {
+public class FileManger {
 
     public String loadImage(String filePath) throws IOException {
         File file = new File(filePath);
