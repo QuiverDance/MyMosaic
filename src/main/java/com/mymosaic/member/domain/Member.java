@@ -16,11 +16,8 @@ public class Member {
     @Setter
     private Long id;
 
-    @NotEmpty
     private String loginId;
-    @NotEmpty
     private String name;
-    @NotEmpty
     private String password;
     private String introduction = "";
     private UploadFile profile = DefaultFileManger.createDefaultProfileFile();
@@ -37,5 +34,9 @@ public class Member {
 
     public void updateIntroduction(String introduction){
         this.introduction = introduction;
+    }
+
+    public void updatePassword(String password){
+        this.password = password;
     }
 }

@@ -1,6 +1,5 @@
 package com.mymosaic.member.repository;
 
-import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.dto.MemberEditParam;
 import lombok.extern.slf4j.Slf4j;
