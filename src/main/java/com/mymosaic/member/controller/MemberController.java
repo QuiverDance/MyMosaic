@@ -33,7 +33,9 @@ public class MemberController {
      * 회원가입 화면 요청
      * */
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("form") RegisterForm form) {
+    public String addForm(@ModelAttribute("form") RegisterForm form, Model model) {
+        RegisterForm registerForm = new RegisterForm();
+        model.addAttribute("form", registerForm);
         return "members/addMemberForm";
     }
 
