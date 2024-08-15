@@ -12,7 +12,7 @@ public class MemberDto {
     private String name;
     private String profileImgName;
     private String introduction;
-    private MultipartFile profileImg;
+    private String profileImg; //encoded
 
     public MemberDto(Member member){
         id = member.getId();

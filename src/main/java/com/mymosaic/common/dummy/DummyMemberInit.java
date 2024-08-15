@@ -18,9 +18,6 @@ public class DummyMemberInit {
         Member member2 = new Member("test2@aaa.com", "테스터2", "qwer123!");
         Member member3 = new Member("test3@aaa.com", "테스터3", "qwer123!");
 
-        member1.updateProfileImgUrl("/members/profile/테스터1.png");
-        member2.updateProfileImgUrl("/members/profile/테스터2.png");
-        member3.updateProfileImgUrl("/members/profile/테스터3.png");
         member1.updateIntroduction("테스터1 입니다.");
         member2.updateIntroduction("테스터2 입니다.");
         member3.updateIntroduction("테스터3 입니다.");

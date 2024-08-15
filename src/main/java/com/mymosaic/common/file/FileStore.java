@@ -1,16 +1,25 @@
 package com.mymosaic.common.file;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 @Component
 public class FileStore {
+
+    public String loadImage(String fileDir, String filename) throws IOException {
+        File file = new File(fileDir + filename);
+
+        byte[] bytes = FileCopyUtils.copyToByteArray(file);
+        return Base64.getEncoder().encodeToString(bytes);
+    }
 
     /*
     * 파일이 저장될 최종 경로 반환
@@ -59,7 +68,7 @@ public class FileStore {
     /*
     * 파일 확장자 추출
     * */
-    private String extractExt(String originalFilename) {
+    public String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
     }
