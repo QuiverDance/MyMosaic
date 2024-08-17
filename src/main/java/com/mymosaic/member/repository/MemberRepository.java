@@ -43,6 +43,14 @@ public class MemberRepository {
     }
 
     /*
+    * id에 해당하는 Member 비밀번호 수정
+    * */
+    public void updatePassword(Long id, String param){
+        Member member = findById(id);
+        member.updatePassword(param);
+    }
+
+    /*
      * id에 해당하는 Member 조회
      * */
     public Member findById(Long id){

@@ -32,4 +32,8 @@ public class MemberService {
     public void updateMemberInfo(Long id, MemberEditParam param){
         memberRepository.update(id, param);
     }
+
+    public void updateMemberPassword(Long id, String param){
+        memberRepository.updatePassword(id, param);
+    }
 }

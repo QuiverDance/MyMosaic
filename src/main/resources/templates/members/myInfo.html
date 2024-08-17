@@ -19,7 +19,13 @@
         <div class="col">
             <button class="btn" type="button"
                     th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${member.id})}'|">
-                수정
+                내 정보 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="btn" type="button"
+                    th:onclick="|location.href='@{/members/{memberId}/pwd/edit(memberId=${member.id})}'|">
+                내 비밀번호 수정
             </button>
         </div>
     </div>

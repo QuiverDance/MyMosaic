@@ -6,6 +6,7 @@ import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.dto.MemberEditParam;
 import com.mymosaic.member.web.MemberInfoEditForm;
+import com.mymosaic.member.web.MemberPasswordEditForm;
 import com.mymosaic.member.web.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -53,6 +54,11 @@ public class MemberController {
             result.addError(new FieldError("form", "loginId", "중복 아이디 입니다."));
             return "members/addMemberForm";
         }
+        if(!form.getPassword().equals(form.getPassword2())){
+            result.addError(new FieldError("form", "password2", "비밀번호가 일치하지 않습니다."));
+            return "members/addMemberForm";
+        }
+
         memberService.registerMember(form);
         return "redirect:/";
     }
@@ -95,13 +101,45 @@ public class MemberController {
                                  BindingResult result,
                                  Model model) throws IOException {
         if (result.hasErrors()) {
-            model.addAttribute("id", memberId);
             return "members/editMemberForm";
         }
 
         UploadFile attachFile = fileManger.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
         //데이터베이스에 저장 (nullable)
         memberService.updateMemberInfo(memberId, new MemberEditParam(form.getIntroduction(), attachFile));
+        return "redirect:/members/{memberId}";
+    }
+
+    /*
+     * 회원 비밀번호 수정 요청
+     * */
+    @GetMapping("/{memberId}/pwd/edit")
+    public String editMemberPassword(@PathVariable("memberId") Long memberId, Model model){
+        MemberDto member = memberService.findMemberById(memberId);
+
+        MemberPasswordEditForm form = new MemberPasswordEditForm();
+
+        model.addAttribute("id", member.getId());
+        model.addAttribute("form", form);
+        return "members/editPasswordForm";
+    }
+
+    /*
+     * 전달한 form을 바탕으로 회원 비밀번호 수정
+     * */
+    @PatchMapping("/{memberId}/pwd/edit")
+    public String editMemberPassword(@PathVariable("memberId") Long memberId,
+                                 @Valid @ModelAttribute("form") MemberPasswordEditForm form,
+                                 BindingResult result,
+                                 Model model){
+        if (result.hasErrors()) {
+            return "members/editPasswordForm";
+        }
+        if(!form.getPassword().equals(form.getPassword2())){
+            result.addError(new FieldError("form", "password2", "비밀번호가 일치하지 않습니다."));
+            return "members/editPasswordForm";
+        }
+        memberService.updateMemberPassword(memberId, form.getPassword());
         return "redirect:/members/{memberId}";
     }
 }
