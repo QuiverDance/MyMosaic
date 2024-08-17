@@ -3,6 +3,7 @@ package com.mymosaic.member.repository;
 import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.dto.MemberEditParam;
+import com.mymosaic.member.web.MemberPasswordEditForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,5 +56,23 @@ class MemberRepositoryTest {
         //then
         assertThat(findMember.getProfile().getFilePath()).isEqualTo(uploadFile.getFilePath());
         assertThat(findMember.getIntroduction()).isEqualTo(param.getIntroduction());
+    }
+
+    @Test
+    void updatePassword(){
+        //given
+        Member member1 = new Member("test1", "tester1", "123");
+        memberRepository.save(member1);
+
+        //when
+        Long id = member1.getId();
+        MemberPasswordEditForm param = new MemberPasswordEditForm();
+        param.setPassword("testpwd123!");
+        param.setPassword2("testpwd123!");
+
+        memberRepository.updatePassword(id, param.getPassword());
+        Member findMember = memberRepository.findById(id);
+        //then
+        assertThat(findMember.getPassword()).isEqualTo(param.getPassword());
     }
 }
