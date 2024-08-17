@@ -101,6 +101,7 @@ public class MemberController {
                                  BindingResult result,
                                  Model model) throws IOException {
         if (result.hasErrors()) {
+            model.addAttribute("id", memberId);
             return "members/editMemberForm";
         }
 
@@ -133,9 +134,11 @@ public class MemberController {
                                  BindingResult result,
                                  Model model){
         if (result.hasErrors()) {
+            model.addAttribute("id", memberId);
             return "members/editPasswordForm";
         }
         if(!form.getPassword().equals(form.getPassword2())){
+            model.addAttribute("id", memberId);
             result.addError(new FieldError("form", "password2", "비밀번호가 일치하지 않습니다."));
             return "members/editPasswordForm";
         }
