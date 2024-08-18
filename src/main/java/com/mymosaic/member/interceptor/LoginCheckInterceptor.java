@@ -57,10 +57,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         /*현재 세션 member 조회*/
         MemberDto accessMember = (MemberDto)session.getAttribute(SessionConst.LOGIN_MEMBER);
-        /*요청 member와 세션 member가 다른 경우 -> 이전 화면으로 리다이렉트*/
+
+        /*요청 member와 세션 member가 다른 경우 -> 홈 화면으로 리다이렉트*/
         if(!accessMember.getId().equals(targetMember.getId())){
-            log.info("unAuthorized user access");
-            response.sendRedirect(request.getHeader("Referer"));
+            log.info("unauthorized user access");
+            response.sendRedirect("/");
             return false;
         }
         return true;
