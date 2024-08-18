@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+h3 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+h4 {
+    color: #6c757d;
+    margin: 20px 0; /* 위아래 여백을 추가하여 텍스트와 버튼 간 간격을 조절 */
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* 아이템 사이 간격 설정 */
+}
+
+img {
+    border-radius: 50%;
+    border: 2px solid #007bff;
+    object-fit: cover;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* 버튼이 콜의 너비에 맞게 조정됨 */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* 버튼 사이 간격 설정 */
+    justify-content: center; /* 버튼을 중앙 정렬 */
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}

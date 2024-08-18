@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <title>홈 화면</title>
+    <link th:href="@{/css/homeStyle.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="container">
@@ -43,14 +45,12 @@
                 커뮤니티
             </button>
         </div>
-        <div class="col">
-            <form th:action="@{/logout}" method="post">
-                <button class="btn" type="submit">
-                    로그아웃
-                </button>
-            </form>
-        </div>
     </div>
+    <form th:action="@{/logout}" method="post">
+        <button class="logout-btn" type="submit">
+            로그아웃
+        </button>
+    </form>
 </div>
 </body>
 </html>

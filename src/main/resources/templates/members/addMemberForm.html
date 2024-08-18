@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <title>회원 가입</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="container">
@@ -17,7 +19,7 @@
         <div>
             <label for="loginId">로그인 ID</label>
             <input type="text" id="loginId" th:field="*{loginId}"
-                   class="formcontrol"
+                   class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{loginId}" />
         </div>
@@ -29,7 +31,7 @@
             <div class="field-error" th:errors="*{password}" />
         </div>
         <div>
-            <label for="password">비밀번호 확인</label>
+            <label for="password2">비밀번호 확인</label>
             <input type="password" id="password2" th:field="*{password2}"
                    class="form-control"
                    th:errorclass="field-error">
