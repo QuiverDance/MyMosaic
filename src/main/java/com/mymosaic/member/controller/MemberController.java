@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -51,11 +50,11 @@ public class MemberController {
         }
         MemberDto memberByLoginId = memberService.findMemberByLoginId(form.getLoginId());
         if(memberByLoginId != null){
-            result.addError(new FieldError("form", "loginId", "중복 아이디 입니다."));
+            result.rejectValue("loginId","duplicated");
             return "members/addMemberForm";
         }
         if(!form.getPassword().equals(form.getPassword2())){
-            result.addError(new FieldError("form", "password2", "비밀번호가 일치하지 않습니다."));
+            result.rejectValue("password2","mismatched");
             return "members/addMemberForm";
         }
 
@@ -81,7 +80,7 @@ public class MemberController {
      * 회원 수정 화면 요청
      * */
     @GetMapping("/{memberId}/edit")
-    public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
+    public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) {
         MemberDto member = memberService.findMemberById(memberId);
 
         MemberInfoEditForm form = new MemberInfoEditForm();
@@ -139,7 +138,7 @@ public class MemberController {
         }
         if(!form.getPassword().equals(form.getPassword2())){
             model.addAttribute("id", memberId);
-            result.addError(new FieldError("form", "password2", "비밀번호가 일치하지 않습니다."));
+            result.rejectValue("password2", "mismatched");
             return "members/editPasswordForm";
         }
         memberService.updateMemberPassword(memberId, form.getPassword());

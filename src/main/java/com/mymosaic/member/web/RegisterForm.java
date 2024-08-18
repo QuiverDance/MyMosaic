@@ -10,12 +10,12 @@ import lombok.Data;
 public class RegisterForm {
 
     @NotEmpty
-    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "이메일 형식이어야 합니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String loginId;
 
     @NotEmpty
     @Size(min = 8, max = 15)
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,15}$", message = "숫자, 문자 또는 특수문자가 하나 이상 있어야 합니다.")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,15}$")
     private String password;
 
     @NotEmpty

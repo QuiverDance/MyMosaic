@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class MemberInfoEditForm {
 
-    @Length(max = 5)
+    @Length(max = 10)
     private String introduction = "";
     private MultipartFile profileImg;
 }
