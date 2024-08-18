@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col">
-            <img th:src="${member.profileImg} == null ? @{/images/default-profile.png} : @{'data:image/png;base64,' + ${member.profileImg}}"
+            <img th:src="${member.profileImg} == null ? _ : @{'data:image/'+${ext}+';base64,'+${member.profileImg}}"
                  width="200" height="200" alt="프로필 이미지">
         </div>
     </div>

@@ -70,8 +70,8 @@ public class MemberController {
         MemberDto member = memberService.findMemberById(memberId);
 
         member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
-        log.info(member.getProfile().extractExt());
         model.addAttribute("member", member);
+        model.addAttribute("ext", member.getProfile().extractExt());
         return "members/myInfo";
     }
 
