@@ -11,8 +11,7 @@ import com.mymosaic.member.web.RegisterForm;
 import com.mymosaic.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
 
-    private static final Logger log = LoggerFactory.getLogger(MemberController.class);
     private final MemberService memberService;
     private final FileManger fileManger;
 
