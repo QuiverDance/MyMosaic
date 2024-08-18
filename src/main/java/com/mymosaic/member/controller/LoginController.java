@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -36,7 +37,8 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("form") LoginForm form,
                         BindingResult bindingResult,
-                        HttpServletRequest request){
+                        HttpServletRequest request,
+                        @RequestParam(name = "redirectURL", defaultValue = "/") String redirectURL){
         /*입력 값에 문제가 있는 경우 -> 다시 로그인 화면 불러오기*/
         if(bindingResult.hasErrors()){
             return "login/loginForm";
@@ -53,8 +55,8 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 
-        log.info("login success : {}", member.getLoginId());
-        return "redirect:/";
+        log.info("redirectURL : {}", redirectURL);
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")

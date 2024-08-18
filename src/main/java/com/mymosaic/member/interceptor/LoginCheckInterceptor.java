@@ -49,10 +49,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
 
         /*추출 숫자(memberId) Long 으로 parsing*/
-        log.info("list : {} ", matcher.group());
+//        log.info("list : {} ", matcher.group());
         Long targetMemberId = Long.parseLong(matcher.group(0));
         /*요청한 member 조회*/
-        log.info("targetMemberId {}", targetMemberId);
+//        log.info("targetMemberId {}", targetMemberId);
         MemberDto targetMember = memberService.findMemberById(targetMemberId);
 
         /*현재 세션 member 조회*/
