@@ -3,8 +3,8 @@ package com.mymosaic.member.service;
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.dto.MemberDto;
 import com.mymosaic.member.dto.MemberEditParam;
-import com.mymosaic.member.web.RegisterForm;
 import com.mymosaic.member.repository.MemberRepository;
+import com.mymosaic.member.web.RegisterForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

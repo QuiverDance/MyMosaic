@@ -2,6 +2,7 @@ package com.mymosaic.common.dummy;
 
 import com.mymosaic.member.domain.Member;
 import com.mymosaic.member.repository.MemberRepository;
+import com.mymosaic.member.repository.MemoryMemberRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

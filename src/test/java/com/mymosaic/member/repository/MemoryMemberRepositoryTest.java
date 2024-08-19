@@ -11,9 +11,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MemberRepositoryTest {
+class MemoryMemberRepositoryTest {
 
-    private final MemberRepository memberRepository = new MemberRepository();
+    private final MemoryMemberRepository memberRepository = new MemoryMemberRepository();
 
     @AfterEach
     void afterEach(){
