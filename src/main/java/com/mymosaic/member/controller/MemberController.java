@@ -33,8 +33,6 @@ public class MemberController {
      * */
     @GetMapping("/add")
     public String addForm(@ModelAttribute("form") RegisterForm form, Model model) {
-        RegisterForm registerForm = new RegisterForm();
-        model.addAttribute("form", registerForm);
         return "members/addMemberForm";
     }
 
@@ -79,14 +77,14 @@ public class MemberController {
      * 회원 수정 화면 요청
      * */
     @GetMapping("/{memberId}/edit")
-    public String editMemberInfo(@PathVariable("memberId") Long memberId, Model model) {
+    public String editMemberInfo(@PathVariable("memberId") Long memberId,
+                                 @ModelAttribute("form") MemberInfoEditForm form,
+                                 Model model) {
         MemberDto member = memberService.findMemberById(memberId);
 
-        MemberInfoEditForm form = new MemberInfoEditForm();
         form.setIntroduction(member.getIntroduction());
 
         model.addAttribute("id", member.getId());
-        model.addAttribute("form", form);
         return "members/editMemberForm";
     }
 
@@ -113,13 +111,12 @@ public class MemberController {
      * 회원 비밀번호 수정 요청
      * */
     @GetMapping("/{memberId}/pwd/edit")
-    public String editMemberPassword(@PathVariable("memberId") Long memberId, Model model){
+    public String editMemberPassword(@PathVariable("memberId") Long memberId,
+                                     @ModelAttribute("form") MemberPasswordEditForm form,
+                                     Model model){
         MemberDto member = memberService.findMemberById(memberId);
 
-        MemberPasswordEditForm form = new MemberPasswordEditForm();
-
         model.addAttribute("id", member.getId());
-        model.addAttribute("form", form);
         return "members/editPasswordForm";
     }
 
