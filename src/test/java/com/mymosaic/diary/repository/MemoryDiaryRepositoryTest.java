@@ -1,0 +1,63 @@
+package com.mymosaic.diary.repository;
+
+import com.mymosaic.diary.domain.Diary;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MemoryDiaryRepositoryTest {
+
+    private final MemoryDiaryRepository diaryRepository = new MemoryDiaryRepository();
+
+    @AfterEach
+    void afterEach(){
+        diaryRepository.clearStore();
+    }
+
+    @Test
+    void save(){
+        //given
+        Diary diary1 = new Diary(1L, false, "사용자 1의 일기1", LocalDate.now());
+        Diary diary2 = new Diary(1L, false, "사용자 1의 일기2", LocalDate.now());
+        Diary diary3 = new Diary(1L, false, "사용자 1의 일기3", LocalDate.now());
+        Diary diary4 = new Diary(2L, false, "사용자 2의 일기1", LocalDate.now());
+        Diary diary5 = new Diary(3L, false, "사용자 3의 일기1", LocalDate.now());
+
+        //when
+        diaryRepository.save(diary1);
+        diaryRepository.save(diary2);
+        diaryRepository.save(diary3);
+        diaryRepository.save(diary4);
+        diaryRepository.save(diary5);
+
+        Diary findDairy4 = diaryRepository.findById(diary4.getId());
+        List<Diary> findDiaryList = diaryRepository.findByMemberId(1L, null);
+
+        //then
+        assertThat(findDairy4.getMemberId()).isEqualTo(2L);
+        assertThat(findDiaryList.size()).isEqualTo(3);
+    }
+
+    @Test
+    void delete(){
+        //given
+        Diary diary1 = new Diary(1L, false, "사용자 1의 일기1", LocalDate.now());
+        Diary diary2 = new Diary(1L, false, "사용자 1의 일기2", LocalDate.now());
+        Diary diary3 = new Diary(1L, false, "사용자 1의 일기3", LocalDate.now());
+
+        //when
+        diaryRepository.save(diary1);
+        diaryRepository.save(diary2);
+        diaryRepository.save(diary3);
+
+        diaryRepository.delete(diary2.getId());
+        List<Diary> findDiaryList = diaryRepository.findByMemberId(1L, null);
+
+        //then
+        assertThat(findDiaryList.size()).isEqualTo(2);
+    }
+}
