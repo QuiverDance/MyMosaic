@@ -1,6 +1,7 @@
 package com.mymosaic.diary.repository;
 
 import com.mymosaic.diary.domain.Diary;
+import com.mymosaic.diary.dto.DiaryEditParam;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,11 +22,11 @@ class MemoryDiaryRepositoryTest {
     @Test
     void save(){
         //given
-        Diary diary1 = new Diary(1L, false, "사용자 1의 일기1", LocalDate.now());
-        Diary diary2 = new Diary(1L, false, "사용자 1의 일기2", LocalDate.now());
-        Diary diary3 = new Diary(1L, false, "사용자 1의 일기3", LocalDate.now());
-        Diary diary4 = new Diary(2L, false, "사용자 2의 일기1", LocalDate.now());
-        Diary diary5 = new Diary(3L, false, "사용자 3의 일기1", LocalDate.now());
+        Diary diary1 = new Diary(1L, false, "제목 1","사용자 1의 일기1", LocalDate.now());
+        Diary diary2 = new Diary(1L, false, "제목 2","사용자 1의 일기2", LocalDate.now());
+        Diary diary3 = new Diary(1L, false, "제목 3","사용자 1의 일기3", LocalDate.now());
+        Diary diary4 = new Diary(2L, false, "제목 11","사용자 2의 일기1", LocalDate.now());
+        Diary diary5 = new Diary(3L, false, "제목 22","사용자 3의 일기1", LocalDate.now());
 
         //when
         diaryRepository.save(diary1);
@@ -45,9 +46,9 @@ class MemoryDiaryRepositoryTest {
     @Test
     void delete(){
         //given
-        Diary diary1 = new Diary(1L, false, "사용자 1의 일기1", LocalDate.now());
-        Diary diary2 = new Diary(1L, false, "사용자 1의 일기2", LocalDate.now());
-        Diary diary3 = new Diary(1L, false, "사용자 1의 일기3", LocalDate.now());
+        Diary diary1 = new Diary(1L, false, "제목 1","사용자 1의 일기1", LocalDate.now());
+        Diary diary2 = new Diary(1L, false, "제목 2","사용자 1의 일기2", LocalDate.now());
+        Diary diary3 = new Diary(1L, false, "제목 3","사용자 1의 일기3", LocalDate.now());
 
         //when
         diaryRepository.save(diary1);
@@ -59,5 +60,24 @@ class MemoryDiaryRepositoryTest {
 
         //then
         assertThat(findDiaryList.size()).isEqualTo(2);
+    }
+
+    @Test
+    void update(){
+        //given
+        Diary diary1 = new Diary(1L, false, "제목 1", "사용자 1의 일기1", LocalDate.now());
+
+        //when
+        diaryRepository.save(diary1);
+        DiaryEditParam param = new DiaryEditParam();
+        param.setPublic(true);
+        param.setTitle("변경된 제목");
+        param.setContent("수정된 사용자 1의 일기1");
+        param.setLocalDate(LocalDate.of(2024, 1, 1));
+
+        diaryRepository.update(diary1.getId(), param);
+        Diary findDiary = diaryRepository.findById(diary1.getId());
+        //then
+        assertThat(findDiary).isEqualTo(diary1);
     }
 }
