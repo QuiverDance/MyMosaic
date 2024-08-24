@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>일기장 등록</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h2>일기장 등록</h2>
+    </div>
+    <form action="" th:action th:object="${form}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="title">제목</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+        </div>
+        <div>
+            <label for="date">날짜</label>
+            <input type="date" id="date" th:field="*{diaryDate}" class="form-control" required>
+        </div>
+        <div>
+            <label for="content">글 내용</label>
+            <textarea id="content" th:field="*{content}" class="form-control" rows="5" required></textarea>
+        </div>
+        <div>
+            <label for="isPublic">공개 여부</label>
+            <input type="checkbox" id="isPublic" th:field="*{isPublic}">
+            <span>공개</span>
+        </div>
+        <div>
+            <label for="files">파일 업로드</label>
+            <input type="file" id="files" th:field="*{files}" class="form-control" multiple>
+        </div>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="btn" type="submit">등록</button>
+            </div>
+            <div class="col">
+                <button class="btn" type="button" th:onclick="|location.href='@{/diaries/${memberId}}'|">취소</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>일기 목록</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h2>일기 목록</h2>
+    </div>
+
+    <div class="diary-list">
+        <ul>
+            <li th:each="diary : ${diaries}">
+                <span th:text="${diary.title}">일기 제목</span> -
+                <span th:text="${#temporals.format(diary.diaryDate, 'yyyy-MM-dd')}">일기 날짜</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn" type="button"
+                th:onclick="|location.href='@{/diaries/{memberId}/add(memberId=${memberId})}'|">
+            일기 추가
+        </button>
+    </div>
+</div>
+</body>
+</html>

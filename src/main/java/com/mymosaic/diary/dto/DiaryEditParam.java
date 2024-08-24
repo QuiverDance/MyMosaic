@@ -14,5 +14,5 @@ public class DiaryEditParam {
     private String title;
     private String content;
     private List<UploadFile> files = new ArrayList<>();
-    private LocalDate localDate;
+    private LocalDate diaryDate;
 }

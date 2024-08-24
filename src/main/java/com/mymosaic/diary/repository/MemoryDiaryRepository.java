@@ -47,7 +47,7 @@ public class MemoryDiaryRepository implements DiaryRepository{
                 param.getTitle(),
                 param.getContent(),
                 param.getFiles(),
-                param.getLocalDate());
+                param.getDiaryDate());
     }
 
     @Override

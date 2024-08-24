@@ -108,3 +108,7 @@ hr.my-4 {
     margin: 20px 0;
 }
 
+input[type="radio"] {
+    margin-right: 5px;
+}
+

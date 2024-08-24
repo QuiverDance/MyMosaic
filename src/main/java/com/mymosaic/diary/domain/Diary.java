@@ -21,16 +21,16 @@ public class Diary {
     private String title;
     private String content;
     private List<UploadFile> files = new ArrayList<>();
-    private LocalDate dairyDate;
+    private LocalDate diaryDate;
     private final LocalDateTime uploadTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
 
-    public Diary(Long memberId, Boolean isPublic, String title, String content, LocalDate dairyDate){
+    public Diary(Long memberId, Boolean isPublic, String title, String content, LocalDate diaryDate){
         this.memberId = memberId;
         this.title = title;
         this.isPublic = isPublic;
         this.content = content;
-        this.dairyDate = dairyDate;
+        this.diaryDate = diaryDate;
     }
 
     public void updateDiaryInfo(Boolean isPublic, String title, String content, List<UploadFile> files, LocalDate dairyDate){
@@ -38,7 +38,7 @@ public class Diary {
         this.content = content;
         this.isPublic = isPublic;
         this.files = files;
-        this.dairyDate = dairyDate;
+        this.diaryDate = dairyDate;
         lastTime = LocalDateTime.now();
     }
 

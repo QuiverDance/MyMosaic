@@ -21,7 +21,8 @@
             </button>
         </div>
         <div class="col">
-            <button class="btn" type="button">
+            <button class="btn" type="button"
+                    th:onclick="|location.href='@{/diaries/{memberId}(memberId=${member.id})}'|">
                 일기
             </button>
         </div>

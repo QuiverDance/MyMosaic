@@ -17,7 +17,7 @@ public class DiaryDto {
     private Boolean bookmark;
     private String title;
     private String content;
-    private LocalDate dairyDate;
+    private LocalDate diaryDate;
     private LocalDateTime uploadTime;
     private LocalDateTime lastTime;
 
@@ -31,7 +31,7 @@ public class DiaryDto {
         bookmark = diary.getBookmark();
         title = diary.getTitle();
         content = diary.getContent();
-        dairyDate = diary.getDairyDate();
+        diaryDate = diary.getDiaryDate();
         uploadTime = diary.getUploadTime();
         lastTime = diary.getLastTime();
         files = diary.getFiles();

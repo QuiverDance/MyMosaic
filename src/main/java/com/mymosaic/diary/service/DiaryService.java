@@ -4,7 +4,7 @@ import com.mymosaic.diary.dto.DiaryDto;
 import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.dto.DiarySearchParam;
 import com.mymosaic.diary.repository.DiaryRepository;
-import com.mymosaic.diary.web.DairyAddForm;
+import com.mymosaic.diary.web.DiaryAddForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
 
-    public void saveDiary(DairyAddForm form, Long memberId){
+    public void saveDiary(DiaryAddForm form, Long memberId){
         diaryRepository.save(form.toDiary(memberId));
     }
 

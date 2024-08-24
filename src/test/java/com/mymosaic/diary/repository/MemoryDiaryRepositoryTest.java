@@ -73,7 +73,7 @@ class MemoryDiaryRepositoryTest {
         param.setPublic(true);
         param.setTitle("변경된 제목");
         param.setContent("수정된 사용자 1의 일기1");
-        param.setLocalDate(LocalDate.of(2024, 1, 1));
+        param.setDiaryDate(LocalDate.of(2024, 1, 1));
 
         diaryRepository.update(diary1.getId(), param);
         Diary findDiary = diaryRepository.findById(diary1.getId());
