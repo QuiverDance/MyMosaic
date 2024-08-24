@@ -48,4 +48,23 @@ public class DiaryController {
         model.addAttribute("memberId", memberId);
         return "diaries/diaryList";
     }
+
+    @GetMapping("/{memberId}/{diaryId}")
+    String getDiaryInfo(@PathVariable("memberId") Long memberId,
+                        @PathVariable("diaryId") Long diaryId,
+                        Model model){
+        DiaryDto diary = diaryService.findDairyById(diaryId);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("diary", diary);
+        return "diaries/diaryInfo";
+    }
+
+    @DeleteMapping("/{memberId}/{diaryId}/delete")
+    String deleteDiary(@PathVariable("memberId") Long memberId,
+                       @PathVariable("diaryId") Long diaryId,
+                       Model model){
+        diaryService.deleteDiary(diaryId);
+        model.addAttribute(memberId);
+        return "redirect:/diaries/{memberId}";
+    }
 }

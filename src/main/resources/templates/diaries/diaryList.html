@@ -14,7 +14,7 @@
     <div class="diary-list">
         <ul>
             <li th:each="diary : ${diaries}">
-                <span th:text="${diary.title}">일기 제목</span> -
+                <a th:href="@{/diaries/{memberId}/{diaryId}(memberId=${memberId},diaryId=${diary.id})}" th:text="${diary.title}">일기 제목</a>
                 <span th:text="${#temporals.format(diary.diaryDate, 'yyyy-MM-dd')}">일기 날짜</span>
             </li>
         </ul>
