@@ -41,12 +41,19 @@ public class MemoryDiaryRepository implements DiaryRepository{
 
     @Override
     public void update(Long id, DiaryEditParam param) {
-
+        Diary diary = findById(id);
+        diary.updateDiaryInfo(
+                param.isPublic(),
+                param.getTitle(),
+                param.getContent(),
+                param.getFiles(),
+                param.getLocalDate());
     }
 
     @Override
     public void updateBookmark(Long id, Boolean bookmark) {
-
+        Diary diary = findById(id);
+        diary.updateBookmark(bookmark);
     }
 
     @Override

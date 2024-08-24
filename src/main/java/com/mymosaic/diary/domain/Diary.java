@@ -25,14 +25,15 @@ public class Diary {
     private final LocalDateTime uploadTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
 
-    public Diary(Long memberId, Boolean isPublic, String content, LocalDate dairyDate){
+    public Diary(Long memberId, Boolean isPublic, String title, String content, LocalDate dairyDate){
         this.memberId = memberId;
+        this.title = title;
         this.isPublic = isPublic;
         this.content = content;
         this.dairyDate = dairyDate;
     }
 
-    public void updateDiaryInfo(String title, String content, Boolean isPublic, List<UploadFile> files, LocalDate dairyDate){
+    public void updateDiaryInfo(Boolean isPublic, String title, String content, List<UploadFile> files, LocalDate dairyDate){
         this.title = title;
         this.content = content;
         this.isPublic = isPublic;
