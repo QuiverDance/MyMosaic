@@ -1,8 +1,10 @@
 package com.mymosaic.diary.controller;
 
 import com.mymosaic.diary.dto.DiaryDto;
+import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.service.DiaryService;
 import com.mymosaic.diary.web.DiaryAddForm;
+import com.mymosaic.diary.web.DiaryEditForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -66,5 +68,37 @@ public class DiaryController {
         diaryService.deleteDiary(diaryId);
         model.addAttribute(memberId);
         return "redirect:/diaries/{memberId}";
+    }
+
+    @GetMapping("/{memberId}/{diaryId}/edit")
+    String getEditForm(@PathVariable("memberId") Long memberId,
+                       @PathVariable("diaryId") Long diaryId,
+                       @ModelAttribute("form") DiaryEditParam form,
+                       Model model){
+        DiaryDto diary = diaryService.findDairyById(diaryId);
+        form.setIsPublic(diary.getIsPublic());
+        form.setTitle(diary.getTitle());
+        form.setContent(diary.getContent());
+        form.setDiaryDate(diary.getDiaryDate());
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("diaryId", diaryId);
+        return "diaries/editDiaryForm";
+    }
+
+    @PatchMapping("/{memberId}/{diaryId}/edit")
+    String editDiary(@PathVariable("memberId") Long memberId,
+                     @PathVariable("diaryId") Long diaryId,
+                     @ModelAttribute("form") DiaryEditForm form,
+                     BindingResult bindingResult,
+                     Model model){
+        if(bindingResult.hasErrors()){
+            return "diaries/editDiaryForm";
+        }
+        diaryService.updateDiaryInfo(diaryId, form);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("diaryId", diaryId);
+        return "redirect:/diaries/{memberId}/{diaryId}";
     }
 }

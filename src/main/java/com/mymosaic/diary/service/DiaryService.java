@@ -5,6 +5,7 @@ import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.dto.DiarySearchParam;
 import com.mymosaic.diary.repository.DiaryRepository;
 import com.mymosaic.diary.web.DiaryAddForm;
+import com.mymosaic.diary.web.DiaryEditForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,8 @@ public class DiaryService {
                 .stream().map(DiaryDto::new).toList();
     }
 
-    public void updateDiaryInfo(Long id, DiaryEditParam param){
-        diaryRepository.update(id, param);
+    public void updateDiaryInfo(Long id, DiaryEditForm form){
+        diaryRepository.update(id, form.toEditParam());
     }
 
     public void updateBookmark(Long id, boolean bookmark){

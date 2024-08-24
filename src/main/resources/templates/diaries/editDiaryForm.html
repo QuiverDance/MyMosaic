@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>일기 수정</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h2>일기 수정</h2>
+    </div>
+
+    <form th:action="@{/diaries/{memberId}/{diaryId}/edit(memberId=${memberId},diaryId=${diaryId})}"
+          th:object="${form}" th:method="patch" enctype="multipart/form-data">
+        <div>
+            <label for="title">제목</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+        </div>
+        <div>
+            <label for="diaryDate">날짜</label>
+            <input type="date" id="diaryDate" th:field="*{diaryDate}" class="form-control" required>
+        </div>
+        <div>
+            <label for="content">내용</label>
+            <textarea id="content" th:field="*{content}" class="form-control" rows="10" required></textarea>
+        </div>
+        <div>
+            <label for="isPublic">공개 여부</label>
+            <input type="checkbox" id="isPublic" th:field="*{isPublic}" class="form-control">
+        </div>
+        <div>
+            <label for="files">파일</label>
+            <input type="file" id="files" th:field="*{files}" class="form-control" multiple>
+        </div>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="btn" type="submit">수정 완료</button>
+            </div>
+            <div class="col">
+                <button class="btn" type="button" th:onclick="|location.href='@{/diaries/{memberId}/{diaryId}(memberId=${memberId},diaryId=${diaryId})}'|">취소</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

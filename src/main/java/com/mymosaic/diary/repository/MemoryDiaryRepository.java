@@ -43,7 +43,7 @@ public class MemoryDiaryRepository implements DiaryRepository{
     public void update(Long id, DiaryEditParam param) {
         Diary diary = findById(id);
         diary.updateDiaryInfo(
-                param.isPublic(),
+                param.getIsPublic(),
                 param.getTitle(),
                 param.getContent(),
                 param.getFiles(),
