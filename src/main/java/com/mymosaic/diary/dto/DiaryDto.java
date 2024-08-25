@@ -18,7 +18,7 @@ public class DiaryDto {
     private String title;
     private String content;
     private LocalDate diaryDate;
-    private LocalDateTime uploadTime;
+    private LocalDateTime createdTime;
     private LocalDateTime lastTime;
 
     private List<UploadFile> files;
@@ -32,7 +32,7 @@ public class DiaryDto {
         title = diary.getTitle();
         content = diary.getContent();
         diaryDate = diary.getDiaryDate();
-        uploadTime = diary.getUploadTime();
+        createdTime = diary.getCreatedTime();
         lastTime = diary.getLastTime();
         files = diary.getFiles();
     }

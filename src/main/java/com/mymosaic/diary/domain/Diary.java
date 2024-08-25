@@ -22,7 +22,7 @@ public class Diary {
     private String content;
     private List<UploadFile> files = new ArrayList<>();
     private LocalDate diaryDate;
-    private final LocalDateTime uploadTime = LocalDateTime.now();
+    private final LocalDateTime createdTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
 
     public Diary(Long memberId, Boolean isPublic, String title, String content, LocalDate diaryDate){
