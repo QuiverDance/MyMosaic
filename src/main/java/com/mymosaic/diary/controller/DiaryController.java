@@ -17,12 +17,12 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/diaries")
+@RequestMapping("/diaries/{memberId}")
 public class DiaryController {
 
     private final DiaryService diaryService;
 
-    @GetMapping("/{memberId}/add")
+    @GetMapping("/add")
     String getAddForm(@PathVariable("memberId") Long memberId,
                       @ModelAttribute("form") DiaryAddForm form,
                       Model model){
@@ -30,7 +30,7 @@ public class DiaryController {
         return "diaries/addDiaryForm";
     }
 
-    @PostMapping("/{memberId}/add")
+    @PostMapping("/add")
     String addDiary(@PathVariable("memberId") Long memberId,
                     @ModelAttribute("form") DiaryAddForm form,
                     BindingResult bindingResult){
@@ -43,7 +43,7 @@ public class DiaryController {
         return "redirect:/diaries/{memberId}";
     }
 
-    @GetMapping("/{memberId}")
+    @GetMapping
     String getDiaries(@PathVariable("memberId") Long memberId, Model model){
         List<DiaryDto> diaries = diaryService.findDiaryByMemberId(memberId, null); //Param search is not implemented
         model.addAttribute("diaries", diaries);
@@ -51,7 +51,7 @@ public class DiaryController {
         return "diaries/diaryList";
     }
 
-    @GetMapping("/{memberId}/{diaryId}")
+    @GetMapping("/{diaryId}")
     String getDiaryInfo(@PathVariable("memberId") Long memberId,
                         @PathVariable("diaryId") Long diaryId,
                         Model model){
@@ -61,7 +61,7 @@ public class DiaryController {
         return "diaries/diaryInfo";
     }
 
-    @DeleteMapping("/{memberId}/{diaryId}/delete")
+    @DeleteMapping("/{diaryId}/delete")
     String deleteDiary(@PathVariable("memberId") Long memberId,
                        @PathVariable("diaryId") Long diaryId,
                        Model model){
@@ -70,7 +70,7 @@ public class DiaryController {
         return "redirect:/diaries/{memberId}";
     }
 
-    @GetMapping("/{memberId}/{diaryId}/edit")
+    @GetMapping("/{diaryId}/edit")
     String getEditForm(@PathVariable("memberId") Long memberId,
                        @PathVariable("diaryId") Long diaryId,
                        @ModelAttribute("form") DiaryEditParam form,
@@ -86,7 +86,7 @@ public class DiaryController {
         return "diaries/editDiaryForm";
     }
 
-    @PatchMapping("/{memberId}/{diaryId}/edit")
+    @PatchMapping("/{diaryId}/edit")
     String editDiary(@PathVariable("memberId") Long memberId,
                      @PathVariable("diaryId") Long diaryId,
                      @ModelAttribute("form") DiaryEditForm form,
