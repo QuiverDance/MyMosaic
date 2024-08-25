@@ -5,6 +5,7 @@ import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.service.DiaryService;
 import com.mymosaic.diary.web.DiaryAddForm;
 import com.mymosaic.diary.web.DiaryEditForm;
+import com.mymosaic.diary.web.SearchAndSortForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -44,8 +45,11 @@ public class DiaryController {
     }
 
     @GetMapping
-    String getDiaries(@PathVariable("memberId") Long memberId, Model model){
-        List<DiaryDto> diaries = diaryService.findDiaryByMemberId(memberId, null); //Param search is not implemented
+    String getDiaries(@PathVariable("memberId") Long memberId,
+                      @ModelAttribute("form") SearchAndSortForm form,
+                      Model model){
+
+        List<DiaryDto> diaries = diaryService.findDiaryByMemberId(memberId, form);
         model.addAttribute("diaries", diaries);
         model.addAttribute("memberId", memberId);
         return "diaries/diaryList";

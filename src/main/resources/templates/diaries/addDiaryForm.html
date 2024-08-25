@@ -39,7 +39,7 @@
                 <button class="btn" type="submit">등록</button>
             </div>
             <div class="col">
-                <button class="btn" type="button" th:onclick="|location.href='@{/diaries/${memberId}}'|">취소</button>
+                <button class="btn" type="button" th:onclick="|location.href='@{/diaries/{memberId}(memberId=${memberId})}'|">취소</button>
             </div>
         </div>
     </form>
