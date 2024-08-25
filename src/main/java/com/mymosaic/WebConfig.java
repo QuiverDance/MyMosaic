@@ -1,6 +1,6 @@
 package com.mymosaic;
 
-import com.mymosaic.member.interceptor.LoginCheckInterceptor;
+import com.mymosaic.common.interceptor.LoginCheckInterceptor;
 import com.mymosaic.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

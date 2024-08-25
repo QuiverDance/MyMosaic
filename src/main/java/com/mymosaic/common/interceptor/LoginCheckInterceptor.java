@@ -1,4 +1,4 @@
-package com.mymosaic.member.interceptor;
+package com.mymosaic.common.interceptor;
 
 import com.mymosaic.common.constant.SessionConst;
 import com.mymosaic.member.dto.MemberDto;
