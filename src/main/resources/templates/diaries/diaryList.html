@@ -35,8 +35,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="diary : ${diaries}">
-            <td>
+        <tr th:each="diary : ${diaries}" th:if="${diary.isPublic} or ${isOwner}">
+            <td >
                 <a th:href="@{/diaries/{memberId}/{diaryId}(memberId=${memberId},diaryId=${diary.id})}" th:text="${diary.title}">일기 제목</a>
             </td>
             <td th:text="${#temporals.format(diary.diaryDate, 'yyyy-MM-dd')}">일기 날짜</td>
