@@ -1,6 +1,7 @@
 package com.mymosaic;
 
-import com.mymosaic.common.interceptor.LoginCheckInterceptor;
+import com.mymosaic.common.interceptor.DataAccessInterceptor;
+import com.mymosaic.common.interceptor.OwnerCheckInterceptor;
 import com.mymosaic.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     * */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor(memberService))
+        registry.addInterceptor(new DataAccessInterceptor(memberService))
                 .order(1)
                 .addPathPatterns("/**/edit", "/**/add", "/**/delete")
                 .excludePathPatterns("/members/add");

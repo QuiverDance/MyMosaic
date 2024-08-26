@@ -15,19 +15,19 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @RequiredArgsConstructor
-public class LoginCheckInterceptor implements HandlerInterceptor {
+public class DataAccessInterceptor implements HandlerInterceptor {
 
     private final MemberService memberService;
 
     /*
-    * 접근을 요청한 사용자가 해당 경로에 접근할 수 있는지 확인
+    * 접근을 요청한 사용자가 해당 데이터에 접근할 권한이 있는지 확인(본인 소유만 접근 가능)
     * */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         /*로그 확인용 요청 uri 저장*/
         String requestURI = request.getRequestURI();
-        log.info("login check interceptor start {}", requestURI);
+        log.info("data access interceptor start {}", requestURI);
         /*현재 세션 가져오기*/
         HttpSession session = request.getSession();
 
