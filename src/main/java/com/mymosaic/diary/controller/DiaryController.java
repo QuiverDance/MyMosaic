@@ -47,21 +47,25 @@ public class DiaryController {
     @GetMapping
     String getDiaries(@PathVariable("memberId") Long memberId,
                       @ModelAttribute("form") SearchAndSortForm form,
+                      @RequestAttribute("isOwner") Boolean isOwner,
                       Model model){
 
         List<DiaryDto> diaries = diaryService.findDiaryByMemberId(memberId, form);
         model.addAttribute("diaries", diaries);
         model.addAttribute("memberId", memberId);
+        model.addAttribute("isOwner", isOwner);
         return "diaries/diaryList";
     }
 
     @GetMapping("/{diaryId}")
     String getDiaryInfo(@PathVariable("memberId") Long memberId,
                         @PathVariable("diaryId") Long diaryId,
+                        @RequestAttribute("isOwner") Boolean isOwner,
                         Model model){
         DiaryDto diary = diaryService.findDairyById(diaryId);
         model.addAttribute("memberId", memberId);
         model.addAttribute("diary", diary);
+        model.addAttribute("isOwner", isOwner);
         return "diaries/diaryInfo";
     }
 

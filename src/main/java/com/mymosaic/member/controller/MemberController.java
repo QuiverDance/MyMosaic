@@ -64,12 +64,15 @@ public class MemberController {
      * 회원 정보 화면 요청
      * */
     @GetMapping("/{memberId}")
-    public String MemberInfo(@PathVariable("memberId") Long memberId, Model model) throws IOException {
+    public String MemberInfo(@PathVariable("memberId") Long memberId,
+                             @RequestAttribute("isOwner") Boolean isOwner,
+                             Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
         member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
         model.addAttribute("member", member);
         model.addAttribute("ext", member.getProfile().extractExt());
+        model.addAttribute("isOwner", isOwner);
         return "members/myInfo";
     }
 

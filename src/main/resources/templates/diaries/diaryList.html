@@ -46,6 +46,7 @@
 
     <div class="text-center mt-4">
         <button class="btn" type="button"
+                th:if="${isOwner}"
                 th:onclick="|location.href='@{/diaries/{memberId}/add(memberId=${memberId})}'|">
             일기 추가
         </button>

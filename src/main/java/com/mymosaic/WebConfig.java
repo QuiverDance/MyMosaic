@@ -23,5 +23,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**/edit", "/**/add", "/**/delete")
                 .excludePathPatterns("/members/add");
+
+        registry.addInterceptor(new OwnerCheckInterceptor(memberService))
+                .order(2)
+                .addPathPatterns("/members/*", "/diaries/*", "/diaries/*/*");
     }
 }
