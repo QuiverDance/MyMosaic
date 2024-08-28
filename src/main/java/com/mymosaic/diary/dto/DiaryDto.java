@@ -14,7 +14,6 @@ public class DiaryDto {
     private Long id;
     private Long memberId;
     private Boolean isPublic;
-    private Boolean bookmark;
     private String title;
     private String content;
     private LocalDate diaryDate;
@@ -28,7 +27,6 @@ public class DiaryDto {
         id = diary.getId();
         memberId = diary.getMemberId();
         isPublic = diary.getIsPublic();
-        bookmark = diary.getBookmark();
         title = diary.getTitle();
         content = diary.getContent();
         diaryDate = diary.getDiaryDate();

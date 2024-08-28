@@ -17,7 +17,6 @@ public class Diary {
 
     private Long memberId;
     private Boolean isPublic;
-    private Boolean bookmark = false;
     private String title;
     private String content;
     private List<UploadFile> files = new ArrayList<>();
@@ -40,9 +39,5 @@ public class Diary {
         this.files = files;
         this.diaryDate = dairyDate;
         lastTime = LocalDateTime.now();
-    }
-
-    public void updateBookmark(boolean bookmark){
-        this.bookmark = bookmark;
     }
 }
