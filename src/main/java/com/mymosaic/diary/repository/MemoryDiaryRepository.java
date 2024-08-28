@@ -80,13 +80,6 @@ public class MemoryDiaryRepository implements DiaryRepository{
                 param.getFiles(),
                 param.getDiaryDate());
     }
-
-    @Override
-    public void updateBookmark(Long id, Boolean bookmark) {
-        Diary diary = findById(id);
-        diary.updateBookmark(bookmark);
-    }
-
     @Override
     public void delete(Long id) {
         store.remove(id);

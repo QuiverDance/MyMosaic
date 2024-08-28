@@ -12,6 +12,5 @@ public interface DiaryRepository {
     Diary findById(Long id);
     List<Diary> findByMemberId(Long memberId, DiarySearchAndSortParam param);
     void update(Long id, DiaryEditParam param);
-    void updateBookmark(Long id, Boolean bookmark);
     void delete(Long id);
 }
