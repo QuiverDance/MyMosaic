@@ -14,8 +14,8 @@ import java.util.UUID;
 @Component
 public class FileManger {
 
-    public String loadImage(String filePath) throws IOException {
-        File file = new File(filePath);
+    public String loadImage(UploadFile uploadFile) throws IOException {
+        File file = new File(uploadFile.getFilePath());
 
         byte[] bytes = FileCopyUtils.copyToByteArray(file);
         return Base64.getEncoder().encodeToString(bytes);

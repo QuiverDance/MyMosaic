@@ -69,7 +69,7 @@ public class MemberController {
                              Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
-        member.setProfileImg(fileManger.loadImage(member.getProfile().getFilePath()));
+        member.setProfileImg(fileManger.loadImage(member.getProfile()));
         model.addAttribute("member", member);
         model.addAttribute("ext", member.getProfile().extractExt());
         model.addAttribute("isOwner", isOwner);
