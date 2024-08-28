@@ -1,5 +1,8 @@
 package com.mymosaic.diary.controller;
 
+import com.mymosaic.common.constant.FileDirConst;
+import com.mymosaic.common.file.FileManger;
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.diary.dto.DiaryDto;
 import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.service.DiaryService;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -22,6 +26,7 @@ import java.util.List;
 public class DiaryController {
 
     private final DiaryService diaryService;
+    private final FileManger fileManger;
 
     @GetMapping("/add")
     String getAddForm(@PathVariable("memberId") Long memberId,
@@ -34,13 +39,14 @@ public class DiaryController {
     @PostMapping("/add")
     String addDiary(@PathVariable("memberId") Long memberId,
                     @ModelAttribute("form") DiaryAddForm form,
-                    BindingResult bindingResult){
+                    BindingResult bindingResult) throws IOException {
         log.info("addDiary start");
         if(bindingResult.hasErrors()){
             log.info("diary error = {}", bindingResult.getAllErrors());
             return "diaries/addDiaryForm";
         }
-        diaryService.saveDiary(form, memberId);
+        List<UploadFile> attachFiles = fileManger.storeFiles(FileDirConst.DIARY_DIR, form.getFiles());
+        diaryService.saveDiary(form, attachFiles, memberId);
         return "redirect:/diaries/{memberId}";
     }
 
@@ -48,9 +54,10 @@ public class DiaryController {
     String getDiaries(@PathVariable("memberId") Long memberId,
                       @ModelAttribute("form") SearchAndSortForm form,
                       @RequestAttribute("isOwner") Boolean isOwner,
-                      Model model){
+                      Model model) {
 
         List<DiaryDto> diaries = diaryService.findDiaryByMemberId(memberId, form);
+
         model.addAttribute("diaries", diaries);
         model.addAttribute("memberId", memberId);
         model.addAttribute("isOwner", isOwner);
@@ -61,8 +68,10 @@ public class DiaryController {
     String getDiaryInfo(@PathVariable("memberId") Long memberId,
                         @PathVariable("diaryId") Long diaryId,
                         @RequestAttribute("isOwner") Boolean isOwner,
-                        Model model){
+                        Model model) throws IOException {
         DiaryDto diary = diaryService.findDairyById(diaryId);
+        diary.setEncodedFiles(fileManger.loadImages(diary.getFiles()));
+
         model.addAttribute("memberId", memberId);
         model.addAttribute("diary", diary);
         model.addAttribute("isOwner", isOwner);

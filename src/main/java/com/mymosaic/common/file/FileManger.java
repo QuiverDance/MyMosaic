@@ -21,6 +21,14 @@ public class FileManger {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
+    public List<String> loadImages(List<UploadFile> uploadFiles) throws IOException{
+        List<String> encodedList = new ArrayList<>();
+        for (UploadFile uploadFile : uploadFiles) {
+            encodedList.add(loadImage(uploadFile));
+        }
+        return encodedList;
+    }
+
     /*
     * 파일이 저장될 최종 경로 반환
     * */

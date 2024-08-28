@@ -1,5 +1,6 @@
 package com.mymosaic.diary.service;
 
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.diary.dto.DiaryDto;
 import com.mymosaic.diary.repository.DiaryRepository;
 import com.mymosaic.diary.web.DiaryAddForm;
@@ -16,8 +17,8 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
 
-    public void saveDiary(DiaryAddForm form, Long memberId){
-        diaryRepository.save(form.toDiary(memberId));
+    public void saveDiary(DiaryAddForm form, List<UploadFile> files, Long memberId){
+        diaryRepository.save(form.toDiary(memberId, files));
     }
 
     public DiaryDto findDairyById(Long id){
@@ -31,10 +32,6 @@ public class DiaryService {
 
     public void updateDiaryInfo(Long id, DiaryEditForm form){
         diaryRepository.update(id, form.toEditParam());
-    }
-
-    public void updateBookmark(Long id, boolean bookmark){
-        diaryRepository.updateBookmark(id, bookmark);
     }
 
     public void deleteDiary(Long id){

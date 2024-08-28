@@ -24,12 +24,14 @@ public class Diary {
     private final LocalDateTime createdTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
 
-    public Diary(Long memberId, Boolean isPublic, String title, String content, LocalDate diaryDate){
+    public Diary(Long memberId, Boolean isPublic, String title, String content, List<UploadFile> files, LocalDate diaryDate){
         this.memberId = memberId;
         this.title = title;
         this.isPublic = isPublic;
         this.content = content;
         this.diaryDate = diaryDate;
+        if(!files.isEmpty())
+            this.files = files;
     }
 
     public void updateDiaryInfo(Boolean isPublic, String title, String content, List<UploadFile> files, LocalDate dairyDate){

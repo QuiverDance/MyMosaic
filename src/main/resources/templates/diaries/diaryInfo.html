@@ -3,13 +3,21 @@
 <head>
     <meta charset="utf-8">
     <title>일기 상세</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/diaryStyle.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="container">
     <div class="text-center">
         <h2 th:text="${diary.title}">일기 제목</h2>
         <p th:text="${#temporals.format(diary.diaryDate, 'yyyy-MM-dd')}">작성일</p>
+    </div>
+
+    <div class="image-gallery">
+        <div th:each="file : ${diary.encodedFiles}" class="image-item">
+            <img th:src="${file} == null ? _ : @{'data:image/png;base64,'+${file}}"
+                 alt="Diary Image" class="thumbnail"/>
+            <div class="overlay">+</div>
+        </div>
     </div>
 
     <div class="content">
@@ -22,22 +30,21 @@
         <p th:text="${diary.isPublic ? '공개' : '비공개'}">공개 여부</p>
     </div>
 
-    <div class="attachments">
-        <h4>첨부 파일</h4>
-    </div>
 
-    <div class="actions">
+    <div class="button-group">
         <button class="btn" type="button"
                 th:if="${isOwner}"
-                th:onclick="|location.href='@{/diaries/{memberId}/{diaryId}/edit(memberId=${memberId},diaryId=${diary.id})}'|">
-            수정
+                th:onclick="|location.href='@{/diaries/edit/{id}(id=${diary.id})}'|">수정
         </button>
         <button class="btn" type="button"
-                th:onclick="|location.href='@{/diaries/{memberId}(memberId=${memberId})}'|">목록으로 돌아가기</button>
+                th:onclick="|location.href='@{/diaries/{memberId}(memberId=${memberId})}'|">목록으로 돌아가기
+        </button>
         <form th:if="${isOwner}"
               th:action="@{/diaries/{memberId}/{diaryId}/delete(memberId=${memberId},diaryId=${diary.id})}"
               th:method="delete" style="display:inline;">
-            <button class="btn delete-btn" type="submit" onclick="return confirm('정말로 이 일기를 삭제하시겠습니까?');">일기 삭제</button>
+            <button class="btn delete-btn" type="submit" onclick="return confirm('정말로 이 일기를 삭제하시겠습니까?');">
+                일기 삭제
+            </button>
         </form>
     </div>
 </div>

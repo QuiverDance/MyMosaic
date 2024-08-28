@@ -1,5 +1,6 @@
 package com.mymosaic.diary.web;
 
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.diary.domain.Diary;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,7 @@ public class DiaryAddForm {
 
     private List<MultipartFile> files = new ArrayList<>();
 
-    public Diary toDiary(Long memberId){
-        return new Diary(memberId, isPublic, title, content, diaryDate);
+    public Diary toDiary(Long memberId, List<UploadFile> files){
+        return new Diary(memberId, isPublic, title, content, files, diaryDate);
     }
 }
