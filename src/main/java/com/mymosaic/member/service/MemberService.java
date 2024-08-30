@@ -39,8 +39,7 @@ public class MemberService {
 
     public void updateMemberInfo(Long id, MemberInfoEditForm form) throws IOException {
         UploadFile attachFile = fileManger.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
-        MemberEditParam param = new MemberEditParam(form.getIntroduction(), attachFile);
-        memberRepository.update(id, param);
+        memberRepository.update(id, form.toParam(attachFile));
     }
 
     public void updateMemberPassword(Long id, String param){
