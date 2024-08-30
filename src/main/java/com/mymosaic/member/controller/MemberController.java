@@ -94,7 +94,6 @@ public class MemberController {
                                  BindingResult result,
                                  Model model) throws IOException {
         if (result.hasErrors()) {
-            model.addAttribute("id", memberId);
             return "members/editMemberForm";
         }
 
@@ -125,7 +124,6 @@ public class MemberController {
                                  BindingResult result,
                                  Model model){
         if (result.hasErrors()) {
-            model.addAttribute("id", memberId);
             return "members/editPasswordForm";
         }
         if(!form.getPassword().equals(form.getPassword2())){
