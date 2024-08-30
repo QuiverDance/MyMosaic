@@ -15,23 +15,28 @@
           th:object="${form}" th:method="patch" enctype="multipart/form-data">
         <div>
             <label for="title">제목</label>
-            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+            <input type="text" id="title" th:field="*{title}" class="form-control" >
+            <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
         <div>
             <label for="diaryDate">날짜</label>
             <input type="date" id="diaryDate" th:field="*{diaryDate}" class="form-control" required>
+            <div class="field-error" th:if="${#fields.hasErrors('diaryDate')}" th:errors="*{diaryDate}"></div>
         </div>
         <div>
             <label for="content">내용</label>
-            <textarea id="content" th:field="*{content}" class="form-control" rows="10" required></textarea>
+            <textarea id="content" th:field="*{content}" class="form-control" rows="10" ></textarea>
+            <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         </div>
         <div>
             <label for="isPublic">공개 여부</label>
             <input type="checkbox" id="isPublic" th:field="*{isPublic}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('isPublic')}" th:errors="*{isPublic}"></div>
         </div>
         <div>
             <label for="files">파일</label>
             <input type="file" id="files" th:field="*{files}" class="form-control" multiple>
+            <div class="field-error" th:if="${#fields.hasErrors('files')}" th:errors="*{files}"></div>
         </div>
 
         <hr class="my-4">

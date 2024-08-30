@@ -5,7 +5,7 @@
     <title>일기장 등록</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
-<body>
+<<body>
 <div class="container">
     <div class="text-center">
         <h2>일기장 등록</h2>
@@ -13,24 +13,29 @@
     <form action="" th:action th:object="${form}" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">제목</label>
-            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+            <input type="text" id="title" th:field="*{title}" class="form-control" >
+            <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
         <div>
             <label for="date">날짜</label>
             <input type="date" id="date" th:field="*{diaryDate}" class="form-control" required>
+            <div class="field-error" th:if="${#fields.hasErrors('diaryDate')}" th:errors="*{diaryDate}"></div>
         </div>
         <div>
             <label for="content">글 내용</label>
-            <textarea id="content" th:field="*{content}" class="form-control" rows="5" required></textarea>
+            <textarea id="content" th:field="*{content}" class="form-control" rows="5" ></textarea>
+            <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         </div>
         <div>
             <label for="isPublic">공개 여부</label>
             <input type="checkbox" id="isPublic" th:field="*{isPublic}">
             <span>공개</span>
+            <div class="field-error" th:if="${#fields.hasErrors('isPublic')}" th:errors="*{isPublic}"></div>
         </div>
         <div>
             <label for="files">파일 업로드</label>
             <input type="file" id="files" th:field="*{files}" class="form-control" multiple>
+            <div class="field-error" th:if="${#fields.hasErrors('files')}" th:errors="*{files}"></div>
         </div>
 
         <hr class="my-4">

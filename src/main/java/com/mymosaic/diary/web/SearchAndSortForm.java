@@ -3,8 +3,6 @@ package com.mymosaic.diary.web;
 import com.mymosaic.diary.dto.DiarySearchAndSortParam;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class SearchAndSortForm {
 

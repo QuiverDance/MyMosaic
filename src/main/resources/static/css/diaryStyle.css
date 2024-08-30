@@ -83,3 +83,21 @@ body {
 .delete-btn:hover {
     background-color: #c82333;
 }
+
+input[type="text"],
+input[type="password"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: left;
+}

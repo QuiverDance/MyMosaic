@@ -9,6 +9,7 @@ import com.mymosaic.diary.service.DiaryService;
 import com.mymosaic.diary.web.DiaryAddForm;
 import com.mymosaic.diary.web.DiaryEditForm;
 import com.mymosaic.diary.web.SearchAndSortForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class DiaryController {
 
     @PostMapping("/add")
     String addDiary(@PathVariable("memberId") Long memberId,
-                    @ModelAttribute("form") DiaryAddForm form,
+                    @Valid @ModelAttribute("form") DiaryAddForm form,
                     BindingResult bindingResult) throws IOException {
         log.info("addDiary start");
         if(bindingResult.hasErrors()){
@@ -103,7 +104,7 @@ public class DiaryController {
     @PatchMapping("/{diaryId}/edit")
     String editDiary(@PathVariable("memberId") Long memberId,
                      @PathVariable("diaryId") Long diaryId,
-                     @ModelAttribute("form") DiaryEditForm form,
+                     @Valid @ModelAttribute("form") DiaryEditForm form,
                      BindingResult bindingResult,
                      Model model) throws IOException {
         if(bindingResult.hasErrors()){
