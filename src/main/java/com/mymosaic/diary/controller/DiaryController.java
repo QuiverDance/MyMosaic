@@ -105,7 +105,7 @@ public class DiaryController {
                      @PathVariable("diaryId") Long diaryId,
                      @ModelAttribute("form") DiaryEditForm form,
                      BindingResult bindingResult,
-                     Model model){
+                     Model model) throws IOException {
         if(bindingResult.hasErrors()){
             return "diaries/editDiaryForm";
         }

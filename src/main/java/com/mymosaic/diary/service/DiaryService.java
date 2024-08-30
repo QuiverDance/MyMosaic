@@ -37,8 +37,9 @@ public class DiaryService {
                 .stream().map(DiaryDto::new).toList();
     }
 
-    public void updateDiaryInfo(Long id, DiaryEditForm form){
-        diaryRepository.update(id, form.toEditParam());
+    public void updateDiaryInfo(Long id, DiaryEditForm form) throws IOException {
+        List<UploadFile> attachFiles = fileManger.storeFiles(FileDirConst.DIARY_DIR, form.getFiles());
+        diaryRepository.update(id, form.toEditParam(attachFiles));
     }
 
     public void deleteDiary(Long id){

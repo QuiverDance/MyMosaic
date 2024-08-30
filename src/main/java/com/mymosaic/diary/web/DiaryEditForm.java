@@ -1,5 +1,6 @@
 package com.mymosaic.diary.web;
 
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.diary.dto.DiaryEditParam;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +19,9 @@ public class DiaryEditForm {
 
     private List<MultipartFile> files = new ArrayList<>();
 
-    public DiaryEditParam toEditParam(){
+    public DiaryEditParam toEditParam(List<UploadFile> uploadFiles){
         return new DiaryEditParam(
-                isPublic, title, content, new ArrayList<>(), diaryDate
+                isPublic, title, content, uploadFiles, diaryDate
         );
     }
 }
