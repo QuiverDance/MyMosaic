@@ -1,10 +1,6 @@
 package com.mymosaic.member.controller;
 
-import com.mymosaic.common.constant.FileDirConst;
-import com.mymosaic.common.file.FileManger;
-import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.member.dto.MemberDto;
-import com.mymosaic.member.dto.MemberEditParam;
 import com.mymosaic.member.web.MemberInfoEditForm;
 import com.mymosaic.member.web.MemberPasswordEditForm;
 import com.mymosaic.member.web.RegisterForm;
@@ -26,7 +22,6 @@ import java.io.IOException;
 public class MemberController {
 
     private final MemberService memberService;
-    private final FileManger fileManger;
 
     /*
      * 회원가입 화면 요청
@@ -69,7 +64,6 @@ public class MemberController {
                              Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
-        member.setProfileImg(fileManger.loadImage(member.getProfile()));
         model.addAttribute("member", member);
         model.addAttribute("ext", member.getProfile().extractExt());
         model.addAttribute("isOwner", isOwner);
@@ -82,7 +76,7 @@ public class MemberController {
     @GetMapping("/{memberId}/edit")
     public String editMemberInfo(@PathVariable("memberId") Long memberId,
                                  @ModelAttribute("form") MemberInfoEditForm form,
-                                 Model model) {
+                                 Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
         form.setIntroduction(member.getIntroduction());
@@ -104,9 +98,8 @@ public class MemberController {
             return "members/editMemberForm";
         }
 
-        UploadFile attachFile = fileManger.storeFile(FileDirConst.MEMBER_PROFILE_DIR, form.getProfileImg());
         //데이터베이스에 저장 (nullable)
-        memberService.updateMemberInfo(memberId, new MemberEditParam(form.getIntroduction(), attachFile));
+        memberService.updateMemberInfo(memberId, form);
         return "redirect:/members/{memberId}";
     }
 
@@ -116,7 +109,7 @@ public class MemberController {
     @GetMapping("/{memberId}/pwd/edit")
     public String editMemberPassword(@PathVariable("memberId") Long memberId,
                                      @ModelAttribute("form") MemberPasswordEditForm form,
-                                     Model model){
+                                     Model model) throws IOException {
         MemberDto member = memberService.findMemberById(memberId);
 
         model.addAttribute("id", member.getId());

@@ -26,7 +26,6 @@ import java.util.List;
 public class DiaryController {
 
     private final DiaryService diaryService;
-    private final FileManger fileManger;
 
     @GetMapping("/add")
     String getAddForm(@PathVariable("memberId") Long memberId,
@@ -45,8 +44,7 @@ public class DiaryController {
             log.info("diary error = {}", bindingResult.getAllErrors());
             return "diaries/addDiaryForm";
         }
-        List<UploadFile> attachFiles = fileManger.storeFiles(FileDirConst.DIARY_DIR, form.getFiles());
-        diaryService.saveDiary(form, attachFiles, memberId);
+        diaryService.saveDiary(form, memberId);
         return "redirect:/diaries/{memberId}";
     }
 
@@ -70,7 +68,6 @@ public class DiaryController {
                         @RequestAttribute("isOwner") Boolean isOwner,
                         Model model) throws IOException {
         DiaryDto diary = diaryService.findDairyById(diaryId);
-        diary.setEncodedFiles(fileManger.loadImages(diary.getFiles()));
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("diary", diary);
@@ -91,7 +88,7 @@ public class DiaryController {
     String getEditForm(@PathVariable("memberId") Long memberId,
                        @PathVariable("diaryId") Long diaryId,
                        @ModelAttribute("form") DiaryEditParam form,
-                       Model model){
+                       Model model) throws IOException {
         DiaryDto diary = diaryService.findDairyById(diaryId);
         form.setIsPublic(diary.getIsPublic());
         form.setTitle(diary.getTitle());
