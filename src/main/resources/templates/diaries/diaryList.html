@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>일기 목록</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/diaryListStyle.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="container">
@@ -11,23 +11,23 @@
         <h2>일기 목록</h2>
     </div>
 
-    <form action="" th:action="@{/diaries/{memberId}(memberId=${memberId})}" th:object="${form}" method="get">
-        <input type="text" name="keyword" placeholder="제목 검색" th:field="*{keyword}" />
-        <input type="text" name="year" placeholder="년 (YYYY)" th:field="*{year}" />
-        <input type="text" name="month" placeholder="월 (MM)" th:field="*{month}" />
-        <select name="sortBy" th:field="*{sortBy}">
+    <form action="" th:action="@{/diaries/{memberId}(memberId=${memberId})}" th:object="${form}" method="get" class="search-form">
+        <input type="text" name="keyword" placeholder="제목 검색" th:field="*{keyword}" class="form-control" />
+        <input type="text" name="year" placeholder="년 (YYYY)" th:field="*{year}" class="form-control" />
+        <input type="text" name="month" placeholder="월 (MM)" th:field="*{month}" class="form-control" />
+        <select name="sortBy" th:field="*{sortBy}" class="form-control">
             <option value="date">일기 날짜 순</option>
             <option value="createdTime">등록 순</option>
             <option value="title">제목 순</option>
         </select>
-        <select name="sortDir" th:field="*{sortDir}">
+        <select name="sortDir" th:field="*{sortDir}" class="form-control">
             <option value="asc">오름차순</option>
             <option value="desc">내림차순</option>
         </select>
-        <button type="submit">검색 및 정렬</button>
+        <button type="submit" class="btn">검색 및 정렬</button>
     </form>
 
-    <table>
+    <table class="diary-table">
         <thead>
         <tr>
             <th>제목</th>
@@ -36,7 +36,7 @@
         </thead>
         <tbody>
         <tr th:each="diary : ${diaries}" th:if="${diary.isPublic} or ${isOwner}">
-            <td >
+            <td>
                 <a th:href="@{/diaries/{memberId}/{diaryId}(memberId=${memberId},diaryId=${diary.id})}" th:text="${diary.title}">일기 제목</a>
             </td>
             <td th:text="${#temporals.format(diary.diaryDate, 'yyyy-MM-dd')}">일기 날짜</td>
