@@ -66,7 +66,8 @@ public class MemoryDiaryRepository implements DiaryRepository{
         return comparator;
     }
 
-    private List<Diary> findAll(){
+    @Override
+    public List<Diary> findAll(){
         return new ArrayList<>(store.values());
     }
 

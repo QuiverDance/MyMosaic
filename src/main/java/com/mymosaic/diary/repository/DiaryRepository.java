@@ -11,6 +11,7 @@ public interface DiaryRepository {
     void save(Diary diary);
     Diary findById(Long id);
     List<Diary> findByMemberId(Long memberId, DiarySearchAndSortParam param);
+    List<Diary> findAll();
     void update(Long id, DiaryEditParam param);
     void delete(Long id);
 }
