@@ -1,5 +1,8 @@
 package com.mymosaic.hall.repository;
 
+import com.mymosaic.hall.constant.WorkCategoryConst;
+import com.mymosaic.hall.constant.WorkGenreConst;
+import com.mymosaic.hall.constant.WorkSubcategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
 import org.assertj.core.api.Assertions;
@@ -25,8 +28,9 @@ class MemoryWorkRepositoryTest {
     void save(){
         //given
         Work work1 = VideoWork.builder()
-                .genreId(0)
-                .categoryId(0)
+                .genreId(WorkGenreConst.ACTION)
+                .subCategory(WorkSubcategoryConst.MOVIE)
+                .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용1")
                 .memberId(1L)
                 .performers(List.of("배우1", "배우2"))
@@ -37,8 +41,9 @@ class MemoryWorkRepositoryTest {
                 .year(2024)
                 .build();
         Work work2 = VideoWork.builder()
-                .genreId(0)
-                .categoryId(0)
+                .genreId(WorkGenreConst.ACTION)
+                .subCategory(WorkSubcategoryConst.MOVIE)
+                .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용2")
                 .memberId(1L)
                 .performers(List.of("배우1", "배우2"))
