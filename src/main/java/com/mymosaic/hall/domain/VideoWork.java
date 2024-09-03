@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 public class VideoWork extends Work {
 
+    private Integer subCategory;
     private Integer genreId;
     private List<UploadFile> workImages = new ArrayList<>();
     private String production;
