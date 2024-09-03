@@ -6,7 +6,6 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDateTime;
 
 @SuperBuilder
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public abstract class Work {
 
@@ -21,13 +20,4 @@ public abstract class Work {
     private Float rating;
     private final LocalDateTime createdTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
-//
-//    public Work(Long memberId, Integer categoryId, Boolean visibility, String name, String content, Float rating){
-//        this.memberId = memberId;
-//        this.categoryId = categoryId;
-//        this.visibility = visibility;
-//        this.name = name;
-//        this.content = content;
-//        this.rating = rating;
-//    }
 }
