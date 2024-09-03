@@ -12,7 +12,7 @@ import java.util.List;
 public class VideoWork extends Work {
 
     private Integer subCategory;
-    private Integer genreId;
+    private List<Integer> genreIds;
     private List<UploadFile> workImages = new ArrayList<>();
     private String production;
     private List<String> performers;

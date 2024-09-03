@@ -28,7 +28,7 @@ class MemoryWorkRepositoryTest {
     void save(){
         //given
         Work work1 = VideoWork.builder()
-                .genreId(WorkGenreConst.ACTION)
+                .genreIds(List.of(WorkGenreConst.ACTION))
                 .subCategory(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용1")
@@ -41,7 +41,7 @@ class MemoryWorkRepositoryTest {
                 .year(2024)
                 .build();
         Work work2 = VideoWork.builder()
-                .genreId(WorkGenreConst.ACTION)
+                .genreIds(List.of(WorkGenreConst.ACTION))
                 .subCategory(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용2")
