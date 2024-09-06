@@ -1,9 +1,9 @@
 package com.mymosaic.hall.constant;
 
 public class WorkGenreConst {
-    public static Integer ACTION = 0;
-    public static Integer FANTASY = 1;
-    public static Integer SF = 2;
-    public static Integer COMEDY = 3;
-    public static Integer HORROR = 4;
+    public static final Integer ACTION = 0;
+    public static final Integer FANTASY = 1;
+    public static final Integer SF = 2;
+    public static final Integer COMEDY = 3;
+    public static final Integer HORROR = 4;
 }
