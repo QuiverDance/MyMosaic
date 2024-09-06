@@ -1,14 +1,11 @@
 package com.mymosaic.diary.controller;
 
-import com.mymosaic.common.constant.FileDirConst;
-import com.mymosaic.common.file.FileManger;
-import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.diary.dto.DiaryDto;
 import com.mymosaic.diary.dto.DiaryEditParam;
 import com.mymosaic.diary.service.DiaryService;
 import com.mymosaic.diary.web.DiaryAddForm;
 import com.mymosaic.diary.web.DiaryEditForm;
-import com.mymosaic.diary.web.SearchAndSortForm;
+import com.mymosaic.diary.web.DiarySearchAndSortForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +48,7 @@ public class DiaryController {
 
     @GetMapping
     String getDiaries(@PathVariable("memberId") Long memberId,
-                      @ModelAttribute("form") SearchAndSortForm form,
+                      @ModelAttribute("form") DiarySearchAndSortForm form,
                       @RequestAttribute("isOwner") Boolean isOwner,
                       Model model) {
 

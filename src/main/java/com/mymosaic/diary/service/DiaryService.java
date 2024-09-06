@@ -7,7 +7,8 @@ import com.mymosaic.diary.dto.DiaryDto;
 import com.mymosaic.diary.repository.DiaryRepository;
 import com.mymosaic.diary.web.DiaryAddForm;
 import com.mymosaic.diary.web.DiaryEditForm;
-import com.mymosaic.diary.web.SearchAndSortForm;
+import com.mymosaic.diary.web.DiarySearchAndSortForm;
+import com.mymosaic.diary.web.DiarySearchAndSortForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class DiaryService {
         return diaryDto;
     }
 
-    public List<DiaryDto> findDiaryByMemberId(Long memberId, SearchAndSortForm form){
+    public List<DiaryDto> findDiaryByMemberId(Long memberId, DiarySearchAndSortForm form){
         return diaryRepository.findByMemberId(memberId, form.toParam())
                 .stream().map(DiaryDto::new).toList();
     }

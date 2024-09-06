@@ -4,7 +4,7 @@ import com.mymosaic.diary.dto.DiarySearchAndSortParam;
 import lombok.Data;
 
 @Data
-public class SearchAndSortForm {
+public class DiarySearchAndSortForm {
 
     String keyword;
     String year;
