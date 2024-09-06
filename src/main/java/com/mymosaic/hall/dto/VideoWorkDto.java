@@ -1,15 +1,14 @@
 package com.mymosaic.hall.dto;
 
 import com.mymosaic.common.file.UploadFile;
-import com.mymosaic.hall.domain.Work;
-import lombok.Getter;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @SuperBuilder
-@Getter
-public class VideoWorkDto extends Work {
+@Data
+public class VideoWorkDto extends WorkDto {
 
     private Integer subCategory;
     private List<Integer> genreIds;
