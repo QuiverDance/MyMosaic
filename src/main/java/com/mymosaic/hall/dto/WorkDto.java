@@ -17,6 +17,6 @@ public abstract class WorkDto {
     private String name;
     private String content;
     private Float rating;
-    private final LocalDateTime createdTime = LocalDateTime.now();
+    private LocalDateTime createdTime;
     private LocalDateTime lastTime;
 }
