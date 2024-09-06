@@ -1,13 +1,18 @@
 package com.mymosaic.hall.service;
 
+import com.mymosaic.hall.common.WorkConverter;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
+import com.mymosaic.hall.dto.WorkDto;
+import com.mymosaic.hall.dto.WorkSearchAndSortParam;
 import com.mymosaic.hall.repository.WorkRepository;
 import com.mymosaic.hall.web.VideoWorkAddForm;
 import com.mymosaic.hall.web.WorkAddForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +32,14 @@ public class WorkService {
         workRepository.save(work);
     }
 
+    public WorkDto findWorkById(Long id){
+        return WorkConverter.convertToDto(workRepository.findById(id));
+    }
+
+    public List<WorkDto> findWorksByMemberId(Long memberId){
+        return workRepository.findByMemberId(memberId, new WorkSearchAndSortParam())
+                .stream().map(WorkConverter::convertToDto).toList();
+    }
     private Work createVideoWork(VideoWorkAddForm form, Long memberId){
         Work videoWork = VideoWork.builder()
                 .memberId(memberId)
