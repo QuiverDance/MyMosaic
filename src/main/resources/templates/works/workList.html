@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>작품 목록</title>
+    <link th:href="@{/css/workListStyle.css}" rel="stylesheet" />
+</head>
+<body>
+
+<h1>작품 목록</h1>
+
+<div class="add-button-container">
+    <button class="btn" type="button"
+            th:onclick="|location.href='@{/works/{memberId}/add(memberId=${memberId})}'|">
+        작품 추가
+    </button>
+</div>
+
+<div class="grid-container">
+    <div th:each="work : ${works}" class="grid-item">
+        <a th:href="@{/works/{memberId}/{workId}(memberId=${memberId},workId=${work.id})}">
+            <h3 th:text="${work.name}">Work Name</h3>
+            <p th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getCategoryName(work.categoryId)}">Category</p>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

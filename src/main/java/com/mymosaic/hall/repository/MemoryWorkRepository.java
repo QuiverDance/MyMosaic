@@ -20,7 +20,7 @@ public class MemoryWorkRepository implements WorkRepository{
     public void save(Work work) {
         work.setId(++sequence);
         store.put(work.getId(), work);
-        log.info("save diary {}", work);
+        log.info("save work {}", work);
     }
 
     @Override

@@ -27,8 +27,9 @@
             </button>
         </div>
         <div class="col">
-            <button class="btn" type="button">
-                전시품
+            <button class="btn" type="button"
+                    th:onclick="|location.href='@{/works/{memberId}(memberId=${member.id})}'|">
+                전당
             </button>
         </div>
         <div class="col">

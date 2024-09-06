@@ -1,0 +1,32 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); //열 5개
+    gap: 20px;
+    padding: 20px;
+}
+.grid-item {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+.grid-item h3 {
+    margin: 0;
+}
+.grid-item a {
+    text-decoration: none;
+    color: inherit;
+}
+.add-button-container {
+margin-bottom: 20px;
+}
+
+.add-button-container button {
+padding: 10px 20px;
+background-color: #28a745;
+color: white;
+border: none;
+cursor: pointer;
+font-size: 16px;
+}

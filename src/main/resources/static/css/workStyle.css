@@ -1,0 +1,28 @@
+.detail-container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+.detail-container h1 {
+    margin-bottom: 10px;
+}
+.detail-container p {
+    margin: 5px 0;
+}
+.button-container {
+    margin-top: 20px;
+}
+.button-container a, .button-container form {
+    display: inline-block;
+    margin-right: 10px;
+}
+.button-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+.button-container button.delete {
+    background-color: #dc3545;
+}
