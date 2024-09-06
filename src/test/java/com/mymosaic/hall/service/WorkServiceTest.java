@@ -1,7 +1,6 @@
 package com.mymosaic.hall.service;
 
 import com.mymosaic.hall.constant.WorkCategoryConst;
-import com.mymosaic.hall.constant.WorkGenreConst;
 import com.mymosaic.hall.constant.WorkSubcategoryConst;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WorkServiceTest {
