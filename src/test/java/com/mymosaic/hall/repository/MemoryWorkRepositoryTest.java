@@ -62,6 +62,7 @@ class MemoryWorkRepositoryTest {
 
         //then
         assertThat(findAll.size()).isEqualTo(2);
+        assertThat(findAll.getFirst()).isInstanceOf(VideoWork.class);
         assertThat(findById.getName()).isEqualTo(work1.getName());
     }
 }
