@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class VideoWorkDto extends WorkDto {
 
-    private Integer subCategory;
+    private Integer subCategoryId;
     private List<Integer> genreIds;
     private List<UploadFile> workImages;
     private String production;
