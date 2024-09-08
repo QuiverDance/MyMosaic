@@ -6,7 +6,7 @@ import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
 
-public class WorkConverter {
+public class WorkTypeConverter {
 
     public static WorkDto convertToDto(Work work){
         WorkDto workDto = null;
