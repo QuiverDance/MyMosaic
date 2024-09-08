@@ -15,7 +15,7 @@
 
     <!-- 추가적인 작품 정보 표시 -->
     <div th:if="${work instanceof T(com.mymosaic.hall.dto.VideoWorkDto)}">
-        <p><strong>세부 카테고리:</strong> <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getSubCategoryName(work.subCategory)}">카테고리</span></p>
+        <p><strong>세부 카테고리:</strong> <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getSubCategoryName(work.subCategoryId)}">카테고리</span></p>
         <p><strong>장르:</strong>
             <div th:each="genreId : ${work.genreIds}">
                 <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getGenreName(genreId)}">카테고리</span>
