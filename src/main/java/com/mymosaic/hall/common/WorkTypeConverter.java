@@ -5,7 +5,9 @@ import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class WorkTypeConverter {
 
     public static WorkDto convertToDto(Work work){
@@ -14,8 +16,9 @@ public class WorkTypeConverter {
         // categoryId에 따라 적절한 서브 타입으로 변환
         if(work.getCategoryId().equals(WorkCategoryConst.VIDEO)){
             VideoWork videoWork = (VideoWork)work;
+            log.info("ids : {}", videoWork.getSubCategoryId());
             workDto = VideoWorkDto.builder()
-                    .subCategory(videoWork.getSubCategory())
+                    .subCategoryId(videoWork.getSubCategoryId())
                     .genreIds(videoWork.getGenreIds())
                     .performers(videoWork.getPerformers())
                     .production(videoWork.getProduction())

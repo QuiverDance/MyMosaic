@@ -47,6 +47,6 @@ class WorkServiceTest {
 
         //then
         assertThat(worksByMemberId.size()).isEqualTo(2);
-        assertThat(videoWorkDtoList.getFirst().getSubCategory()).isEqualTo(WorkSubcategoryConst.MOVIE);
+        assertThat(videoWorkDtoList.getFirst().getSubCategoryId()).isEqualTo(WorkSubcategoryConst.MOVIE);
     }
 }
