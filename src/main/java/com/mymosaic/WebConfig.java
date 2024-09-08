@@ -14,9 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final MemberService memberService;
 
-    /*
-    * 인터셉터 등록
-    * */
+    //인터셉터 등록
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new DataAccessInterceptor(memberService))
