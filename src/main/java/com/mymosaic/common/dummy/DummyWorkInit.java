@@ -31,7 +31,7 @@ public class DummyWorkInit {
         List<Work> list = new ArrayList<>();
         list.add(VideoWork.builder()
                 .genreIds(List.of(WorkGenreConst.ACTION, WorkGenreConst.COMEDY))
-                .subCategory(WorkSubcategoryConst.MOVIE)
+                .subCategoryId(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용1")
                 .memberId(1L)
@@ -44,7 +44,7 @@ public class DummyWorkInit {
                 .build());
         list.add(VideoWork.builder()
                 .genreIds(List.of(WorkGenreConst.ACTION))
-                .subCategory(WorkSubcategoryConst.MOVIE)
+                .subCategoryId(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용2")
                 .memberId(1L)
@@ -57,7 +57,7 @@ public class DummyWorkInit {
                 .build());
         list.add(VideoWork.builder()
                 .genreIds(List.of(WorkGenreConst.SF, WorkGenreConst.FANTASY))
-                .subCategory(WorkSubcategoryConst.MOVIE)
+                .subCategoryId(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용3")
                 .memberId(2L)

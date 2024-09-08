@@ -5,15 +5,12 @@ import com.mymosaic.hall.constant.WorkGenreConst;
 import com.mymosaic.hall.constant.WorkSubcategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemoryWorkRepositoryTest {
 
@@ -29,7 +26,7 @@ class MemoryWorkRepositoryTest {
         //given
         Work work1 = VideoWork.builder()
                 .genreIds(List.of(WorkGenreConst.ACTION))
-                .subCategory(WorkSubcategoryConst.MOVIE)
+                .subCategoryId(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용1")
                 .memberId(1L)
@@ -42,7 +39,7 @@ class MemoryWorkRepositoryTest {
                 .build();
         Work work2 = VideoWork.builder()
                 .genreIds(List.of(WorkGenreConst.ACTION))
-                .subCategory(WorkSubcategoryConst.MOVIE)
+                .subCategoryId(WorkSubcategoryConst.MOVIE)
                 .categoryId(WorkCategoryConst.VIDEO)
                 .content("작품 내용2")
                 .memberId(1L)
