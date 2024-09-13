@@ -41,7 +41,7 @@ public class WorkTypeConverter {
         workDto.setMemberId(work.getMemberId());
         workDto.setName(work.getName());
         workDto.setContent(work.getContent());
-        workDto.setRating(workDto.getRating());
+        workDto.setRating(work.getRating());
         workDto.setVisibility(work.getVisibility());
         workDto.setCategoryId(work.getCategoryId());
         workDto.setCreatedTime(work.getCreatedTime());
