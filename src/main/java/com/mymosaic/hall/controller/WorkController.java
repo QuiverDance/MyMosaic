@@ -1,9 +1,11 @@
 package com.mymosaic.hall.controller;
 
 import com.mymosaic.hall.constant.WorkCategoryConst;
+import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.service.WorkService;
 import com.mymosaic.hall.web.WorkAddForm;
+import com.mymosaic.hall.web.WorkEditForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -68,5 +70,26 @@ public class WorkController {
         model.addAttribute("work", work);
 
         return "works/workInfo";
+    }
+
+    @GetMapping("/{workId}/edit")
+    public String getEditForm(@PathVariable("memberId") Long memberId,
+                              @PathVariable("workId") Long workId,
+                              @RequestParam("categoryId") Integer categoryId,
+                              Model model){
+        WorkDto work = workService.findWorkById(workId);
+        WorkEditForm form = new WorkEditForm(work, categoryId);
+        model.addAttribute("editForm", form);
+        model.addAttribute("categoryId", categoryId);
+        return "works/editWorkForm";
+    }
+
+    @PatchMapping("/{workId}/edit")
+    public String editWork(@PathVariable("memberId") Long memberId,
+                           @PathVariable("workId") Long workId,
+                           @RequestParam("categoryId") Integer categoryId,
+                           @ModelAttribute("editForm") WorkEditForm editForm){
+        workService.editWork(editForm, memberId, categoryId);
+        return "redirect:/works/{memberId}/{workId}";
     }
 }

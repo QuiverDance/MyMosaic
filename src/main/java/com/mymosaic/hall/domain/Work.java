@@ -20,4 +20,11 @@ public abstract class Work {
     private Float rating;
     private final LocalDateTime createdTime = LocalDateTime.now();
     private LocalDateTime lastTime = LocalDateTime.now();
+
+    void updateWorkInfo(Boolean visibility, String name, String content, Float rating){
+        this.visibility = visibility;
+        this.name = name;
+        this.content = content;
+        this.rating = rating;
+    }
 }

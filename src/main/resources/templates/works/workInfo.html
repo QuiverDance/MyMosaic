@@ -33,7 +33,7 @@
     <div class="button-container">
 
         <button class="btn" type="button"
-                th:onclick="|location.href='@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId})}'|">
+                th:onclick="|location.href='@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId},categoryId=${work.categoryId})}'|">
             수정
         </button>
 

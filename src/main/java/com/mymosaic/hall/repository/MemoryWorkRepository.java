@@ -1,6 +1,9 @@
 package com.mymosaic.hall.repository;
 
+import com.mymosaic.hall.constant.WorkCategoryConst;
+import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
+import com.mymosaic.hall.dto.VideoWorkEditParam;
 import com.mymosaic.hall.dto.WorkEditParam;
 import com.mymosaic.hall.dto.WorkSearchAndSortParam;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +44,19 @@ public class MemoryWorkRepository implements WorkRepository{
     }
 
     @Override
-    public void update(Long id, WorkEditParam param) {
-
+    public void update(Long id, Integer categoryId, WorkEditParam param) {
+        Work newWork = null;
+        if(categoryId.equals(WorkCategoryConst.VIDEO)){
+            VideoWork work = (VideoWork)findById(id);
+            VideoWorkEditParam p = (VideoWorkEditParam)param;
+            work.updateVideoWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
+                    p.getSubCategoryId(), p.getGenreIds(), new ArrayList<>(), p.getProduction(),
+                    p.getPerformers(), p.getYear());
+            newWork = work;
+        }
+        if(newWork != null){
+            store.put(id, newWork);
+        }
     }
 
     @Override

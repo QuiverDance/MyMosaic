@@ -8,6 +8,7 @@ import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.dto.WorkSearchAndSortParam;
 import com.mymosaic.hall.repository.WorkRepository;
 import com.mymosaic.hall.web.WorkAddForm;
+import com.mymosaic.hall.web.WorkEditForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,11 @@ public class WorkService {
     public List<WorkDto> findWorksByMemberId(Long memberId){
         return workRepository.findByMemberId(memberId, new WorkSearchAndSortParam())
                 .stream().map(WorkTypeConverter::convertToDto).toList();
+    }
+
+    public void editWork(WorkEditForm form, Long memberId, Integer categoryId){
+        if(categoryId.equals(WorkCategoryConst.VIDEO))
+            workRepository.update(memberId, categoryId, form.toVideoEditParam());
     }
     private Work createVideoWork(WorkAddForm form, Long memberId){
         Work videoWork = VideoWork.builder()

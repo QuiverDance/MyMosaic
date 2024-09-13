@@ -17,4 +17,16 @@ public class VideoWork extends Work {
     private String production;
     private List<String> performers;
     private Integer year;
+
+    public void updateVideoWorkInfo(Boolean visibility, String name, String content, Float rating,
+                                    Integer subCategoryId, List<Integer> genreIds, List<UploadFile> workImages, String production,
+                                    List<String> performers, Integer year){
+        super.updateWorkInfo(visibility, name, content, rating);
+        this.subCategoryId = subCategoryId;
+        this.genreIds = genreIds;
+        this.workImages = workImages;
+        this.production = production;
+        this.performers = performers;
+        this.year = year;
+    }
 }

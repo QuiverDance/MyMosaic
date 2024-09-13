@@ -13,6 +13,6 @@ public interface WorkRepository {
     Work findById(Long id);
     List<Work> findByMemberId(Long memberId, WorkSearchAndSortParam param);
     List<Work> findAll();
-    void update(Long id, WorkEditParam param);
+    void update(Long id, Integer categoryId, WorkEditParam param);
     void delete(Long id);
 }
