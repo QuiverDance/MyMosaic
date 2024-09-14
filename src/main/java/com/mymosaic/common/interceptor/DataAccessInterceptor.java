@@ -38,14 +38,11 @@ public class DataAccessInterceptor implements HandlerInterceptor {
         /*요청 uri 에서 숫자 추출({memberId} 부분)*/
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(requestURI);
-        /*요청 uri 에서 숫자가 없는 경우 -> 홈 화면으로 리다이렉트*/
         if (havaMemberId(response, matcher)) return false;
 
         /*추출 숫자(memberId, url의 첫 번째 숫자) Long 으로 parsing*/
         Long targetMemberId = Long.parseLong(matcher.group(0));
-        /*요청한 member 조회*/
         MemberDto targetMember = memberService.findMemberById(targetMemberId);
-        /*현재 세션 member 조회*/
         MemberDto accessMember = (MemberDto)session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         /*요청 member와 세션 member가 다른 경우 -> 홈 화면으로 리다이렉트*/
@@ -73,6 +70,7 @@ public class DataAccessInterceptor implements HandlerInterceptor {
     }
 
     private boolean havaMemberId(HttpServletResponse response, Matcher matcher) throws IOException {
+        /*요청 uri 에서 숫자가 없는 경우 -> 홈 화면으로 리다이렉트*/
         if(!matcher.find()){
             log.info("invalid url");
             response.sendRedirect("/");
