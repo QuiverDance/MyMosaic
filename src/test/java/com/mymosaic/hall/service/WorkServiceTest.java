@@ -5,7 +5,7 @@ import com.mymosaic.hall.constant.WorkSubcategoryConst;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.repository.MemoryWorkRepository;
-import com.mymosaic.hall.web.VideoWorkAddForm;
+import com.mymosaic.hall.web.WorkAddForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,17 +26,17 @@ class WorkServiceTest {
     @Test
     void saveWork(){
         //given
-        VideoWorkAddForm workAddForm = new VideoWorkAddForm();
+        WorkAddForm workAddForm = new WorkAddForm();
         workAddForm.setName("테스트 영상1");
         workAddForm.setContent("테스트 내용1");
         workAddForm.setCategoryId(WorkCategoryConst.VIDEO);
-        workAddForm.setSubCategory(WorkSubcategoryConst.MOVIE);
+        workAddForm.setSubCategoryId(WorkSubcategoryConst.MOVIE);
 
-        VideoWorkAddForm workAddForm2 = new VideoWorkAddForm();
+        WorkAddForm workAddForm2 = new WorkAddForm();
         workAddForm2.setName("테스트 영상2");
         workAddForm2.setContent("테스트 내용2");
         workAddForm2.setCategoryId(WorkCategoryConst.VIDEO);
-        workAddForm2.setSubCategory(WorkSubcategoryConst.DRAMA);
+        workAddForm2.setSubCategoryId(WorkSubcategoryConst.DRAMA);
 
         workService.saveWork(workAddForm, 1L);
         workService.saveWork(workAddForm2, 1L);
