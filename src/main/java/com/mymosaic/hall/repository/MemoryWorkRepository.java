@@ -61,7 +61,7 @@ public class MemoryWorkRepository implements WorkRepository{
 
     @Override
     public void delete(Long id) {
-
+        store.remove(id);
     }
 
     public void clearStore(){

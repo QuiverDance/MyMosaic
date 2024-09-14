@@ -93,4 +93,11 @@ public class WorkController {
         workService.editWork(editForm, workId, categoryId);
         return "redirect:/works/{memberId}/{workId}";
     }
+
+    @DeleteMapping("/{workId}/delete")
+    public String deleteWork(@PathVariable("memberId") Long memberId,
+                             @PathVariable("workId") Long workId){
+        workService.deleteWork(workId);
+        return "redirect:/works/{memberId}";
+    }
 }

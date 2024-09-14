@@ -44,6 +44,11 @@ public class WorkService {
         if(categoryId.equals(WorkCategoryConst.VIDEO))
             workRepository.update(workId, categoryId, form.toVideoEditParam());
     }
+
+    public void deleteWork(Long workId){
+        workRepository.delete(workId);
+    }
+
     private Work createVideoWork(WorkAddForm form, Long memberId){
         Work videoWork = VideoWork.builder()
                 .memberId(memberId)
