@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>작품 수정</title>
+    <link th:href="@{/css/workEditStyle.css}" rel="stylesheet" >
 </head>
 <body>
 
-<h1>작품 수정</h1>
-<form th:action="@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId})}" th:method="patch" th:object="${editForm}">
-    <input type="hidden" name="categoryId" th:value="${categoryId}" />
-
-    <div>
-        <label for="name">이름</label>
-        <input type="text" id="name" th:field="*{name}">
-        <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-    </div>
-    <div>
-        <label for="visibility">공개 여부</label>
-        <input type="checkbox" id="visibility" th:field="*{visibility}">
-        <div class="field-error" th:if="${#fields.hasErrors('visibility')}" th:errors="*{visibility}"></div>
-    </div>
-    <div>
-        <label for="content">내용</label>
-        <input type="text" id="content" th:field="*{content}">
-        <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
-    </div>
-    <div>
-        <label for="rating">평점</label>
-        <input type="number" id="rating" th:field="*{rating}" step="0.5" min="0" max="5" required/>
-        <div class="field-error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
+<div class="container">
+    <div class="header">
+        <h1>작품 수정</h1>
     </div>
 
-    <div th:switch="${categoryId}">
-        <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}"
-             th:replace="~{works/fragments/videoWorkEditFormFragment :: formFields}">
+    <form th:action="@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId})}" th:method="patch" th:object="${editForm}">
+        <input type="hidden" name="categoryId" th:value="${categoryId}" />
+
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
-    </div>
 
-    <hr class="my-4">
-    <div class="row">
-        <div class="col">
+        <div class="form-group">
+            <label for="visibility">공개 여부</label>
+            <input type="checkbox" id="visibility" th:field="*{visibility}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('visibility')}" th:errors="*{visibility}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="content">내용</label>
+            <input type="text" id="content" th:field="*{content}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">평점</label>
+            <input type="number" id="rating" th:field="*{rating}" step="0.5" min="0" max="5" class="form-control" required/>
+            <div class="field-error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
+        </div>
+
+        <div th:switch="${categoryId}">
+            <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}"
+                 th:replace="~{works/fragments/videoWorkEditFormFragment :: formFields}">
+            </div>
+        </div>
+
+        <div class="button-group">
             <button class="btn" type="submit">등록</button>
+            <button class="btn cancel-btn" type="button" th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">취소</button>
         </div>
-        <div class="col">
-            <button class="btn" type="button" th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">취소</button>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 </body>
 </html>

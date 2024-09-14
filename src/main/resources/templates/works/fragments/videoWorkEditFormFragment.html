@@ -1,36 +1,49 @@
-<div th:fragment="formFields" xmlns:th="http://www.thymeleaf.org">
-    <div>
-        <label for="subCategoryId">세부 카테고리</label>
-        <select th:field="*{subCategoryId}" id="subCategoryId" name="subCategoryId" required>
-            <option value="" disabled selected>세부 카테고리 선택</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).MOVIE}">영화</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).DRAMA}">드라마</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ANIMATION}">애니메이션</option>
-        </select>
-    </div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
 
-    <div>
-        <label for="genreIds">장르</label>
-        <select th:field="*{genreIds}" id="genreIds" name="genreIds" multiple size="5">
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).FANTASY}">판타지</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).SF}">SF</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).COMEDY}">코메디</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).HORROR}">공포</option>
-        </select>
-    </div>
+<div class="container">
+    <div th:fragment="formFields">
+        <div class="form-group">
+            <label for="subCategoryId">세부 카테고리</label>
+            <select th:field="*{subCategoryId}" id="subCategoryId" name="subCategoryId" class="form-control" required>
+                <option value="" disabled selected>세부 카테고리 선택</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).MOVIE}">영화</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).DRAMA}">드라마</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ANIMATION}">애니메이션</option>
+            </select>
+        </div>
 
-    <div>
-        <label for="production">제작사</label>
-        <input type="text" th:field="*{production}" id="production" name="production"/>
-    </div>
-    <div>
-        <label for="performers">출연자</label>
-        <input type="text" th:field="*{performers}" id="performers" name="performers"/>
-    </div>
-    <div>
-        <label for="year">연도</label>
-        <input type="number" th:field="*{year}" id="year" name="year"/>
+        <div class="form-group">
+            <label for="genreIds">장르</label>
+            <select th:field="*{genreIds}" id="genreIds" name="genreIds" class="form-control" multiple size="5">
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).FANTASY}">판타지</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).SF}">SF</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).COMEDY}">코메디</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).HORROR}">공포</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="production">제작사</label>
+            <input type="text" th:field="*{production}" id="production" name="production" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="performers">출연자</label>
+            <input type="text" th:field="*{performers}" id="performers" name="performers" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="year">연도</label>
+            <input type="number" th:field="*{year}" id="year" name="year" class="form-control"/>
+        </div>
     </div>
 </div>
 
+</body>
+</html>

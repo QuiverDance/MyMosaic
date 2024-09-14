@@ -6,25 +6,27 @@
     <link th:href="@{/css/workListStyle.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="container">
+    <div class="text-center">
+        <h2>작품 목록</h2>
+    </div>
 
-<h1>작품 목록</h1>
+    <div class="add-button-container text-center">
+        <button class="btn" type="button"
+                th:if="${isOwner}"
+                th:onclick="|location.href='@{/works/{memberId}/add(memberId=${memberId})}'|">
+            작품 추가
+        </button>
+    </div>
 
-<div class="add-button-container">
-    <button class="btn" type="button"
-            th:if="${isOwner}"
-            th:onclick="|location.href='@{/works/{memberId}/add(memberId=${memberId})}'|">
-        작품 추가
-    </button>
-</div>
-
-<div class="grid-container">
-    <div th:each="work : ${works}" class="grid-item">
-        <a th:href="@{/works/{memberId}/{workId}(memberId=${memberId},workId=${work.id})}">
-            <h3 th:text="${work.name}">Work Name</h3>
-            <p th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getCategoryName(work.categoryId)}">Category</p>
-        </a>
+    <div class="grid-container">
+        <div th:each="work : ${works}" class="grid-item">
+            <a th:href="@{/works/{memberId}/{workId}(memberId=${memberId},workId=${work.id})}">
+                <h3 th:text="${work.name}">Work Name</h3>
+                <p th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getCategoryName(work.categoryId)}">Category</p>
+            </a>
+        </div>
     </div>
 </div>
-
 </body>
 </html>

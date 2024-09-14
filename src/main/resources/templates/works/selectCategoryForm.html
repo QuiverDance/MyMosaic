@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>카테고리 선택</title>
+    <link rel="stylesheet" th:href="@{/css/categoryStyle.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-<h1>카테고리 선택</h1>
+<div class="container">
+    <div class="header">
+        <h1>카테고리 선택</h1>
+    </div>
 
-<div>
-    <label for="categoryId">카테고리</label>
-    <select name="categoryId" id="categoryId" required>
-        <option value="" disabled selected>카테고리 선택</option>
-        <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}">영상 작품</option>
-        <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).TEXT}">텍스트 작품</option>
-        <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).CHARACTER}">임눌</option>
-    </select>
+    <div class="form-group">
+        <label for="categoryId">카테고리</label>
+        <select name="categoryId" id="categoryId" class="form-control" required>
+            <option value="" disabled selected>카테고리 선택</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}">영상 작품</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).TEXT}">텍스트 작품</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).CHARACTER}">임눌</option>
+        </select>
+    </div>
+
+    <div id="dynamicForm" class="dynamic-form"></div>
 </div>
-
-<div id="dynamicForm"></div>
 
 <script>
     $(document).ready(function() {
-        var memberId = [[${memberId}]]
+        var memberId = [[${memberId}]];
 
         $('#categoryId').change(function() {
             var categoryId = $(this).val();

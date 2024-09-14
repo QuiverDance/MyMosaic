@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>작품 상세</title>
-    <link th:href="@{/css/workListStyle.css}" rel="stylesheet" />
+    <link th:href="@{/css/workInfoStyle.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -17,25 +17,30 @@
     <div th:if="${work instanceof T(com.mymosaic.hall.dto.VideoWorkDto)}">
         <p><strong>세부 카테고리:</strong> <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getSubCategoryName(work.subCategoryId)}">카테고리</span></p>
         <p><strong>장르:</strong>
-            <div th:each="genreId : ${work.genreIds}">
-                <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getGenreName(genreId)}">카테고리</span>
-            </div>
+        <div th:each="genreId : ${work.genreIds}">
+            <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getGenreName(genreId)}">카테고리</span>
+        </div>
         </p>
         <p><strong>출연자 목록:</strong>
-            <div th:each="performer : ${work.performers}">
-                <span th:text="${performer}">출연자</span>
-            </div>
+        <div th:each="performer : ${work.performers}">
+            <span th:text="${performer}">출연자</span>
+        </div>
         </p>
-        <p><strong>제작사</strong> <span th:text="${work.production}">제작사</span></p>
-        <p><strong>상영 년도</strong> <span th:text="${work.year}">상영 년도</span></p>
+        <p><strong>제작사:</strong> <span th:text="${work.production}">제작사</span></p>
+        <p><strong>상영 년도:</strong> <span th:text="${work.year}">상영 년도</span></p>
     </div>
 
     <div class="button-container">
-
         <button class="btn" type="button"
                 th:if="${isOwner}"
                 th:onclick="|location.href='@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId},categoryId=${work.categoryId})}'|">
             수정
+        </button>
+
+        <!-- 목록 버튼 -->
+        <button class="btn" type="button"
+                th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">
+            작품 목록
         </button>
 
         <!-- 삭제 버튼 -->
@@ -44,11 +49,6 @@
             <button type="submit" class="delete" th:if="${isOwner}">삭제</button>
         </form>
     </div>
-
-    <button class="btn" type="button"
-            th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">
-        작품 목록
-    </button>
 </div>
 
 </body>

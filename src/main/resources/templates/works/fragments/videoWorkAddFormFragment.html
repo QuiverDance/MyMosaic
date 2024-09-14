@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>작품 추가</title>
+</head>
+<body>
 
-<div th:fragment="formFields">
-<form action="" th:action="@{/works/{memberId}/add(memberId=${memberId})}" th:object="${addForm}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="categoryId" th:value="${categoryId}" />
-    <div>
-        <label for="name">이름</label>
-        <input type="text" id="name" th:field="*{name}">
-        <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-    </div>
-    <div>
-        <label for="visibility">공개 여부</label>
-        <input type="checkbox" id="visibility" th:field="*{visibility}">
-        <div class="field-error" th:if="${#fields.hasErrors('visibility')}" th:errors="*{visibility}"></div>
-    </div>
-    <div>
-        <label for="content">내용</label>
-        <input type="text" id="content" th:field="*{content}">
-        <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
-    </div>
-    <div>
-        <label for="rating">평점</label>
-        <input type="number" id="rating" th:field="*{rating}" step="0.5" min="0" max="5" required/>
-        <div class="field-error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
-    </div>
+<div class="container" th:fragment="formFields">
+    <h1>작품 추가</h1>
 
-    <h3>영상 작품 정보</h3>
+    <form th:action="@{/works/{memberId}/add(memberId=${memberId})}" th:object="${addForm}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="categoryId" th:value="${categoryId}" />
 
-    <div>
-        <label for="subCategoryId">세부 카테고리</label>
-        <select th:field="*{subCategoryId}" id="subCategoryId" name="subCategoryId" required>
-            <option value="" disabled selected>세부 카테고리 선택</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).MOVIE}">영화</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).DRAMA}">드라마</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ANIMATION}">애니메이션</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
 
-    <div>
-        <label for="genreIds">장르</label>
-        <select th:field="*{genreIds}" id="genreIds" name="genreIds" multiple size="5">
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).FANTASY}">판타지</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).SF}">SF</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).COMEDY}">코메디</option>
-            <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).HORROR}">공포</option>
+        <div class="form-group">
+            <label for="visibility">공개 여부</label>
+            <input type="checkbox" id="visibility" th:field="*{visibility}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('visibility')}" th:errors="*{visibility}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="content">내용</label>
+            <input type="text" id="content" th:field="*{content}" class="form-control">
+            <div class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">평점</label>
+            <input type="number" id="rating" th:field="*{rating}" step="0.5" min="0" max="5" class="form-control" required>
+            <div class="field-error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
+        </div>
+
+        <h3>영상 작품 정보</h3>
+
+        <div class="form-group">
+            <label for="subCategoryId">세부 카테고리</label>
+            <select th:field="*{subCategoryId}" id="subCategoryId" name="subCategoryId" class="form-control" required>
+                <option value="" disabled selected>세부 카테고리 선택</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).MOVIE}">영화</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).DRAMA}">드라마</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ANIMATION}">애니메이션</option>
             </select>
-    </div>
+        </div>
 
-    <div>
-        <label for="production">제작사</label>
-        <input type="text" th:field="*{production}" id="production" name="production"/>
-    </div>
-    <div>
-        <label for="performers">출연자</label>
-        <input type="text" th:field="*{performers}" id="performers" name="performers"/>
-    </div>
-    <div>
-        <label for="year">연도</label>
-        <input type="number" th:field="*{year}" id="year" name="year"/>
-    </div>
+        <div class="form-group">
+            <label for="genreIds">장르</label>
+            <select th:field="*{genreIds}" id="genreIds" name="genreIds" class="form-control" multiple size="5">
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).FANTASY}">판타지</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).SF}">SF</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).COMEDY}">코메디</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).HORROR}">공포</option>
+            </select>
+        </div>
 
-    <hr class="my-4">
-    <div class="row">
-        <div class="col">
+        <div class="form-group">
+            <label for="production">제작사</label>
+            <input type="text" th:field="*{production}" id="production" name="production" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="performers">출연자</label>
+            <input type="text" th:field="*{performers}" id="performers" name="performers" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="year">연도</label>
+            <input type="number" th:field="*{year}" id="year" name="year" class="form-control"/>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="button-group">
             <button class="btn" type="submit">등록</button>
+            <button class="btn cancel-btn" type="button" th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">취소</button>
         </div>
-        <div class="col">
-            <button class="btn" type="button" th:onclick="|location.href='@{/works/{memberId}(memberId=${memberId})}'|">취소</button>
-        </div>
-    </div>
-</form>
+    </form>
 </div>
+
+</body>
 </html>

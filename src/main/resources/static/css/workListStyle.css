@@ -1,32 +1,92 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); //열 5개
-    gap: 20px;
+/* 기본 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    margin: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 제목 스타일 */
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* 버튼 스타일 */
+.add-button-container {
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 그리드 컨테이너 */
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* 그리드 아이템 */
 .grid-item {
     background-color: #f1f1f1;
     padding: 20px;
-    border: 1px solid #ccc;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-.grid-item h3 {
-    margin: 0;
-}
-.grid-item a {
-    text-decoration: none;
-    color: inherit;
-}
-.add-button-container {
-margin-bottom: 20px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add-button-container button {
-padding: 10px 20px;
-background-color: #28a745;
-color: white;
-border: none;
-cursor: pointer;
-font-size: 16px;
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.grid-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.grid-item h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.grid-item p {
+    font-size: 14px;
+    color: #666;
 }
