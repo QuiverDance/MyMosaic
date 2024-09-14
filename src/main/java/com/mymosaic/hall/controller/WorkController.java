@@ -6,10 +6,12 @@ import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.service.WorkService;
 import com.mymosaic.hall.web.WorkAddForm;
 import com.mymosaic.hall.web.WorkEditForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -88,7 +90,11 @@ public class WorkController {
     public String editWork(@PathVariable("memberId") Long memberId,
                            @PathVariable("workId") Long workId,
                            @RequestAttribute("categoryId") Integer categoryId,
-                           @ModelAttribute("editForm") WorkEditForm editForm){
+                           @Valid @ModelAttribute("editForm") WorkEditForm editForm,
+                           BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "works/editWorkForm";
+        }
         log.info("edit workID = {}", workId);
         workService.editWork(editForm, workId, categoryId);
         return "redirect:/works/{memberId}/{workId}";
