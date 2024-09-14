@@ -33,6 +33,7 @@
     <div class="button-container">
 
         <button class="btn" type="button"
+                th:if="${isOwner}"
                 th:onclick="|location.href='@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId},categoryId=${work.categoryId})}'|">
             수정
         </button>
@@ -40,7 +41,7 @@
         <!-- 삭제 버튼 -->
         <form th:action="@{/works/{memberId}/{workId}/delete(memberId=${memberId},workId=${workId})}"
               th:method="delete" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-            <button type="submit" class="delete">삭제</button>
+            <button type="submit" class="delete" th:if="${isOwner}">삭제</button>
         </form>
     </div>
 

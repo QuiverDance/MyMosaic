@@ -55,22 +55,25 @@ public class WorkController {
 
     @GetMapping
     public String getWorks(@PathVariable("memberId") Long memberId,
+                           @RequestAttribute("isOwner") Boolean isOwner,
                            Model model){
         List<WorkDto> works = workService.findWorksByMemberId(memberId);
         log.info("works = {}", works.size());
 
         model.addAttribute("works", works);
+        model.addAttribute("isOwner", isOwner);
         return "works/workList";
     }
 
     @GetMapping("/{workId}")
     public String getWorkInfo(@PathVariable("memberId") Long memberId,
+                              @RequestAttribute("isOwner") Boolean isOwner,
                               @PathVariable("workId") Long workId,
                               Model model) {
-
         WorkDto work = workService.findWorkById(workId);
-        model.addAttribute("work", work);
 
+        model.addAttribute("work", work);
+        model.addAttribute("isOwner", isOwner);
         return "works/workInfo";
     }
 

@@ -11,6 +11,7 @@
 
 <div class="add-button-container">
     <button class="btn" type="button"
+            th:if="${isOwner}"
             th:onclick="|location.href='@{/works/{memberId}/add(memberId=${memberId})}'|">
         작품 추가
     </button>

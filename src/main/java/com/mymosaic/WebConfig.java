@@ -24,6 +24,6 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(new OwnerCheckInterceptor(memberService))
                 .order(2)
-                .addPathPatterns("/members/*", "/diaries/*", "/diaries/*/*");
+                .addPathPatterns("/members/*", "/diaries/*", "/diaries/*/*", "/works/*", "/works/*/*");
     }
 }
