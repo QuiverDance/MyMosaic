@@ -40,9 +40,9 @@ public class WorkService {
                 .stream().map(WorkTypeConverter::convertToDto).toList();
     }
 
-    public void editWork(WorkEditForm form, Long memberId, Integer categoryId){
+    public void editWork(WorkEditForm form, Long workId, Integer categoryId){
         if(categoryId.equals(WorkCategoryConst.VIDEO))
-            workRepository.update(memberId, categoryId, form.toVideoEditParam());
+            workRepository.update(workId, categoryId, form.toVideoEditParam());
     }
     private Work createVideoWork(WorkAddForm form, Long memberId){
         Work videoWork = VideoWork.builder()

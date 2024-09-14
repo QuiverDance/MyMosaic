@@ -75,7 +75,7 @@ public class WorkController {
     @GetMapping("/{workId}/edit")
     public String getEditForm(@PathVariable("memberId") Long memberId,
                               @PathVariable("workId") Long workId,
-                              @RequestParam("categoryId") Integer categoryId,
+                              @RequestAttribute("categoryId") Integer categoryId,
                               Model model){
         WorkDto work = workService.findWorkById(workId);
         WorkEditForm form = new WorkEditForm(work, categoryId);
@@ -87,9 +87,10 @@ public class WorkController {
     @PatchMapping("/{workId}/edit")
     public String editWork(@PathVariable("memberId") Long memberId,
                            @PathVariable("workId") Long workId,
-                           @RequestParam("categoryId") Integer categoryId,
+                           @RequestAttribute("categoryId") Integer categoryId,
                            @ModelAttribute("editForm") WorkEditForm editForm){
-        workService.editWork(editForm, memberId, categoryId);
+        log.info("edit workID = {}", workId);
+        workService.editWork(editForm, workId, categoryId);
         return "redirect:/works/{memberId}/{workId}";
     }
 }
