@@ -1,22 +1,31 @@
 package com.mymosaic.hall.common;
 
+import com.mymosaic.common.file.FileManger;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.List;
 
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class WorkTypeConverter {
 
-    public static WorkDto convertToDto(Work work){
+    private final FileManger fileManger;
+    public WorkDto convertToDto(Work work) throws IOException {
         WorkDto workDto = null;
 
         // categoryId에 따라 적절한 서브 타입으로 변환
         if(work.getCategoryId().equals(WorkCategoryConst.VIDEO)){
             VideoWork videoWork = (VideoWork)work;
-            log.info("ids : {}", videoWork.getSubCategoryId());
+            List<String> loadedImages = fileManger.loadImages(videoWork.getWorkImages());
             workDto = VideoWorkDto.builder()
                     .subCategoryId(videoWork.getSubCategoryId())
                     .genreIds(videoWork.getGenreIds())
@@ -24,6 +33,7 @@ public class WorkTypeConverter {
                     .production(videoWork.getProduction())
                     .workImages(videoWork.getWorkImages())
                     .year(videoWork.getYear())
+                    .loadedImages(loadedImages)
                     .build();
         }
         else if(work.getCategoryId().equals(WorkCategoryConst.TEXT)) {

@@ -22,6 +22,7 @@ public class FileManger {
     }
 
     public List<String> loadImages(List<UploadFile> uploadFiles) throws IOException{
+        if(uploadFiles == null || uploadFiles.isEmpty()) return null;
         List<String> encodedList = new ArrayList<>();
         for (UploadFile uploadFile : uploadFiles) {
             encodedList.add(loadImage(uploadFile));

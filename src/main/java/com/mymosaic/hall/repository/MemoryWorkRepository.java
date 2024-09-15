@@ -50,7 +50,7 @@ public class MemoryWorkRepository implements WorkRepository{
             VideoWork work = (VideoWork)findById(id);
             VideoWorkEditParam p = (VideoWorkEditParam)param;
             work.updateVideoWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
-                    p.getSubCategoryId(), p.getGenreIds(), new ArrayList<>(), p.getProduction(),
+                    p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getProduction(),
                     p.getPerformers(), p.getYear());
             newWork = work;
         }

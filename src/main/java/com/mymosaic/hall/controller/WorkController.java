@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -47,7 +48,7 @@ public class WorkController {
     @PostMapping("/add")
     public String addWork(@PathVariable("memberId") Long memberId,
                           @RequestParam("categoryId") Integer categoryId,
-                          @ModelAttribute("addForm") WorkAddForm addForm) {
+                          @ModelAttribute("addForm") WorkAddForm addForm) throws IOException {
         addForm.setCategoryId(categoryId);
         workService.saveWork(addForm, memberId);
         return "redirect:/works/{memberId}";
@@ -56,7 +57,7 @@ public class WorkController {
     @GetMapping
     public String getWorks(@PathVariable("memberId") Long memberId,
                            @RequestAttribute("isOwner") Boolean isOwner,
-                           Model model){
+                           Model model) throws IOException {
         List<WorkDto> works = workService.findWorksByMemberId(memberId);
         log.info("works = {}", works.size());
 
@@ -69,7 +70,7 @@ public class WorkController {
     public String getWorkInfo(@PathVariable("memberId") Long memberId,
                               @RequestAttribute("isOwner") Boolean isOwner,
                               @PathVariable("workId") Long workId,
-                              Model model) {
+                              Model model) throws IOException {
         WorkDto work = workService.findWorkById(workId);
 
         model.addAttribute("work", work);
@@ -81,7 +82,7 @@ public class WorkController {
     public String getEditForm(@PathVariable("memberId") Long memberId,
                               @PathVariable("workId") Long workId,
                               @RequestAttribute("categoryId") Integer categoryId,
-                              Model model){
+                              Model model) throws IOException {
         WorkDto work = workService.findWorkById(workId);
         WorkEditForm form = new WorkEditForm(work, categoryId);
         model.addAttribute("editForm", form);
@@ -94,7 +95,7 @@ public class WorkController {
                            @PathVariable("workId") Long workId,
                            @RequestAttribute("categoryId") Integer categoryId,
                            @Valid @ModelAttribute("editForm") WorkEditForm editForm,
-                           BindingResult bindingResult){
+                           BindingResult bindingResult) throws IOException {
         if(bindingResult.hasErrors()){
             return "works/editWorkForm";
         }

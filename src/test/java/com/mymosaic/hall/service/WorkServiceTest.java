@@ -1,5 +1,7 @@
 package com.mymosaic.hall.service;
 
+import com.mymosaic.common.file.FileManger;
+import com.mymosaic.hall.common.WorkTypeConverter;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.constant.WorkSubcategoryConst;
 import com.mymosaic.hall.dto.VideoWorkDto;
@@ -9,6 +11,7 @@ import com.mymosaic.hall.web.WorkAddForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WorkServiceTest {
 
     MemoryWorkRepository workRepository = new MemoryWorkRepository();
-    WorkService workService = new WorkService(workRepository);
+    FileManger fileManger = new FileManger();
+    WorkTypeConverter workTypeConverter = new WorkTypeConverter(fileManger);
+    WorkService workService = new WorkService(workRepository, workTypeConverter, fileManger);
 
     @AfterEach
     void afterEach(){
@@ -24,7 +29,7 @@ class WorkServiceTest {
     }
 
     @Test
-    void saveWork(){
+    void saveWork() throws IOException {
         //given
         WorkAddForm workAddForm = new WorkAddForm();
         workAddForm.setName("테스트 영상1");

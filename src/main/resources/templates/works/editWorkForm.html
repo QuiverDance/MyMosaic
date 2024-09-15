@@ -12,7 +12,7 @@
         <h1>작품 수정</h1>
     </div>
 
-    <form th:action="@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId})}" th:method="patch" th:object="${editForm}">
+    <form th:action="@{/works/{memberId}/{workId}/edit(memberId=${memberId},workId=${workId})}" th:method="patch" th:object="${editForm}" enctype="multipart/form-data">
         <input type="hidden" name="categoryId" th:value="${categoryId}" />
 
         <div class="form-group">

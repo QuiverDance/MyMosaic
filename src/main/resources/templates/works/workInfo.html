@@ -16,6 +16,13 @@
     <!-- 추가적인 작품 정보 표시 -->
     <div th:if="${work instanceof T(com.mymosaic.hall.dto.VideoWorkDto)}">
         <p><strong>세부 카테고리:</strong> <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getSubCategoryName(work.subCategoryId)}">카테고리</span></p>
+        <div class="image-gallery">
+            <div th:each="file : ${work.loadedImages}" class="image-item">
+                <img th:src="${file} == null ? _ : @{'data:image/png;base64,'+${file}}"
+                     alt="Work Image" class="thumbnail"/>
+                <div class="overlay">+</div>
+            </div>
+        </div>
         <p><strong>장르:</strong>
         <div th:each="genreId : ${work.genreIds}">
             <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getGenreName(genreId)}">카테고리</span>

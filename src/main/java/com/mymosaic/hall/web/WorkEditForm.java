@@ -1,5 +1,6 @@
 package com.mymosaic.hall.web;
 
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.VideoWorkEditParam;
@@ -52,7 +53,7 @@ public class WorkEditForm {
         }
     }
 
-    public VideoWorkEditParam toVideoEditParam(){
+    public VideoWorkEditParam toVideoEditParam(List<UploadFile> uploadFiles){
         return VideoWorkEditParam.builder()
                 .visibility(visibility)
                 .name(name)
@@ -63,7 +64,7 @@ public class WorkEditForm {
                 .production(production)
                 .performers(performers)
                 .year(year)
-                .workImageFiles(workImageFiles)
+                .workImageFiles(uploadFiles)
                 .build();
     }
 }

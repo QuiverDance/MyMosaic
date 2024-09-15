@@ -1,5 +1,6 @@
 package com.mymosaic.hall.dto;
 
+import com.mymosaic.common.file.UploadFile;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,5 +16,5 @@ public class VideoWorkEditParam extends WorkEditParam{
     private String production;
     private List<String> performers;
     private Integer year;
-    private List<MultipartFile> workImageFiles;
+    private List<UploadFile> workImageFiles;
 }

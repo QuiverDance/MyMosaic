@@ -49,6 +49,12 @@
         </div>
 
         <div class="form-group">
+            <label for="workImageFiles">파일 업로드</label>
+            <input type="file" id="workImageFiles" th:field="*{workImageFiles}" class="form-control" multiple>
+            <div class="field-error" th:if="${#fields.hasErrors('workImageFiles')}" th:errors="*{workImageFiles}"></div>
+        </div>
+
+        <div class="form-group">
             <label for="genreIds">장르</label>
             <select th:field="*{genreIds}" id="genreIds" name="genreIds" class="form-control" multiple size="5">
                 <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
