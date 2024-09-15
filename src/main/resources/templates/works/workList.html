@@ -20,7 +20,7 @@
     </div>
 
     <div class="grid-container">
-        <div th:each="work : ${works}" class="grid-item">
+        <div th:each="work : ${works}" class="grid-item" th:if="${work.visibility} or ${isOwner}">
             <a th:href="@{/works/{memberId}/{workId}(memberId=${memberId},workId=${work.id})}">
                 <h3 th:text="${work.name}">Work Name</h3>
                 <p th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getCategoryName(work.categoryId)}">Category</p>
