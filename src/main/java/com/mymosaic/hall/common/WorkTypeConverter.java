@@ -1,11 +1,14 @@
 package com.mymosaic.hall.common;
 
+import com.mymosaic.common.constant.FileDirConst;
 import com.mymosaic.common.file.FileManger;
+import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
+import com.mymosaic.hall.web.WorkAddForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -57,5 +60,30 @@ public class WorkTypeConverter {
         workDto.setCreatedTime(work.getCreatedTime());
         workDto.setLastTime(work.getLastTime());
         return workDto;
+    }
+
+    public Work convertToWork(WorkAddForm form, Long memberId) throws IOException {
+        Work work = null;
+        if(form.getCategoryId().equals(WorkCategoryConst.VIDEO)){
+            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+            work = VideoWork.builder()
+                    .memberId(memberId)
+                    .categoryId(form.getCategoryId())
+                    .visibility(form.getVisibility())
+                    .name(form.getName())
+                    .content(form.getContent())
+                    .rating(form.getRating())
+                    .subCategoryId(form.getSubCategoryId())
+                    .genreIds(form.getGenreIds())
+                    .production(form.getProduction())
+                    .performers(form.getPerformers())
+                    .year(form.getYear())
+                    .workImages(uploadFiles)
+                    .build();
+        }
+        else{
+            throw new IllegalArgumentException("Invalid categoryId");
+        }
+        return work;
     }
 }

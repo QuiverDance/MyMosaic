@@ -30,15 +30,7 @@ public class WorkService {
 
 
     public void saveWork(WorkAddForm form, Long memberId) throws IOException {
-        Work work = null;
-        if(form.getCategoryId().equals(WorkCategoryConst.VIDEO)){
-            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
-            work = createVideoWork(form, memberId, uploadFiles);
-        }
-        else{
-            throw new IllegalArgumentException("Invalid categoryId");
-        }
-        workRepository.save(work);
+        workRepository.save(workTypeConverter.convertToWork(form, memberId));
     }
 
     public WorkDto findWorkById(Long id) throws IOException {
