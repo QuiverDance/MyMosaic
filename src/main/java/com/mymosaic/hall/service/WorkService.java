@@ -9,12 +9,10 @@ import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.dto.WorkSearchAndSortParam;
-import com.mymosaic.hall.repository.MemoryWorkRepository;
 import com.mymosaic.hall.repository.WorkRepository;
 import com.mymosaic.hall.web.WorkAddForm;
 import com.mymosaic.hall.web.WorkEditForm;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -58,23 +56,5 @@ public class WorkService {
 
     public void deleteWork(Long workId){
         workRepository.delete(workId);
-    }
-
-    private Work createVideoWork(WorkAddForm form, Long memberId, List<UploadFile> uploadFiles){
-        Work videoWork = VideoWork.builder()
-                .memberId(memberId)
-                .categoryId(form.getCategoryId())
-                .visibility(form.getVisibility())
-                .name(form.getName())
-                .content(form.getContent())
-                .rating(form.getRating())
-                .subCategoryId(form.getSubCategoryId())
-                .genreIds(form.getGenreIds())
-                .production(form.getProduction())
-                .performers(form.getPerformers())
-                .year(form.getYear())
-                .workImages(uploadFiles)
-                .build();
-        return videoWork;
     }
 }
