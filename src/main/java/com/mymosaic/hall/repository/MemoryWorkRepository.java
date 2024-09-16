@@ -45,20 +45,9 @@ public class MemoryWorkRepository implements WorkRepository{
                         matches = w.getName().toLowerCase().contains(param.getKeyword().toLowerCase()); //대소문자 구분x
                     }
                     if (param.getCategoryId() != null) {
-                        matches = matches && w.getCategoryId().equals(param.getCategoryId());
-                        if(matches && param.getCategoryId().equals(WorkCategoryConst.VIDEO)){
-                            VideoWork videoWork = (VideoWork) w;
-                            if(param.getSubcategoryId() != null){
-                                matches = matches && param.getSubcategoryId().equals(videoWork.getSubCategoryId());
-                            }
-                            if(param.getYear() != null){
-                                matches = matches && param.getYear().equals(videoWork.getYear());
-                            }
-                            if(param.getGenreIds() != null && !param.getGenreIds().isEmpty()){
-                                for (Integer genre : param.getGenreIds()) {
-                                    matches = matches && videoWork.getGenreIds().contains(genre);
-                                }
-                            }
+                        matches =  matches && w.getCategoryId().equals(param.getCategoryId());
+                        if(matches){
+                            matches = matches && getCategoryMatches(w, param, matches);
                         }
                     }
                     return matches;
@@ -67,6 +56,39 @@ public class MemoryWorkRepository implements WorkRepository{
                 .toList();
     }
 
+    private Boolean getCategoryMatches(Work w, WorkSearchAndSortParam param, Boolean matches){
+        switch ( w.getCategoryId()) {
+            case WorkCategoryConst.VIDEO -> {
+                VideoWork videoWork = (VideoWork) w;
+                if(param.getSubcategoryId() != null){
+                    matches = matches && param.getSubcategoryId().equals(videoWork.getSubCategoryId());
+                }
+                if(param.getYear() != null){
+                    matches = matches && param.getYear().equals(videoWork.getYear());
+                }
+                if(param.getGenreIds() != null && !param.getGenreIds().isEmpty()){
+                    for (Integer genre : param.getGenreIds()) {
+                        matches = matches && videoWork.getGenreIds().contains(genre);
+                    }
+                }
+            }
+            case WorkCategoryConst.TEXT -> {
+                TextWork textWork = (TextWork) w;
+                if (param.getSubcategoryId() != null) {
+                    matches = matches && param.getSubcategoryId().equals(textWork.getSubCategoryId());
+                }
+                if (param.getYear() != null) {
+                    matches = matches && param.getYear().equals(textWork.getYear());
+                }
+                if (param.getGenreIds() != null && !param.getGenreIds().isEmpty()) {
+                    for (Integer genre : param.getGenreIds()) {
+                        matches = matches && textWork.getGenreIds().contains(genre);
+                    }
+                }
+            }
+        }
+        return matches;
+    }
     private Comparator<Work> getComparator(String sortBy, String sortDir) {
         Comparator<Work> comparator = switch (sortBy) {
             case SortConst.RATING -> Comparator.comparing(Work::getRating);
@@ -89,21 +111,23 @@ public class MemoryWorkRepository implements WorkRepository{
     @Override
     public void update(Long id, Integer categoryId, WorkEditParam param) {
         Work newWork = null;
-        if(categoryId.equals(WorkCategoryConst.VIDEO)){
-            VideoWork work = (VideoWork) findById(id);
-            VideoWorkEditParam p = (VideoWorkEditParam) param;
-            work.updateVideoWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
-                    p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getProduction(),
-                    p.getPerformers(), p.getYear());
-            newWork = work;
-        }
-        if(categoryId.equals(WorkCategoryConst.TEXT)){
-            TextWork work = (TextWork) findById(id);
-            TextWorkEditParam p = (TextWorkEditParam) param;
-            work.updateTextWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
-                    p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getPublisher(),
-                    p.getAuthors(), p.getYear());
-            newWork = work;
+        switch (categoryId) {
+            case WorkCategoryConst.VIDEO -> {
+                VideoWork work = (VideoWork) findById(id);
+                VideoWorkEditParam p = (VideoWorkEditParam) param;
+                work.updateVideoWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
+                        p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getProduction(),
+                        p.getPerformers(), p.getYear());
+                newWork = work;
+            }
+            case WorkCategoryConst.TEXT -> {
+                TextWork work = (TextWork) findById(id);
+                TextWorkEditParam p = (TextWorkEditParam) param;
+                work.updateTextWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
+                        p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getPublisher(),
+                        p.getAuthors(), p.getYear());
+                newWork = work;
+            }
         }
         if(newWork != null){
             store.put(id, newWork);

@@ -46,24 +46,23 @@ public class WorkEditForm {
         content = work.getContent();
         rating = work.getRating();
 
-        if(categoryId.equals(WorkCategoryConst.VIDEO)){
-            VideoWorkDto videoWork = (VideoWorkDto)work;
-            subCategoryId = videoWork.getSubCategoryId();
-            genreIds = videoWork.getGenreIds();
-            production = videoWork.getProduction();
-            performers = videoWork.getPerformers();
-            year = videoWork.getYear();
-        }
-        else if(categoryId.equals(WorkCategoryConst.TEXT)){
-            TextWorkDto textWork = (TextWorkDto)work;
-            subCategoryId = textWork.getSubCategoryId();
-            genreIds = textWork.getGenreIds();
-            publisher = textWork.getPublisher();
-            authors = textWork.getAuthors();
-            year = textWork.getYear();
-        }
-        else if(categoryId.equals(WorkCategoryConst.CHARACTER)){
-
+        switch (categoryId){
+            case WorkCategoryConst.VIDEO -> {
+                VideoWorkDto videoWork = (VideoWorkDto)work;
+                subCategoryId = videoWork.getSubCategoryId();
+                genreIds = videoWork.getGenreIds();
+                production = videoWork.getProduction();
+                performers = videoWork.getPerformers();
+                year = videoWork.getYear();
+            }
+            case WorkCategoryConst.TEXT -> {
+                TextWorkDto textWork = (TextWorkDto)work;
+                subCategoryId = textWork.getSubCategoryId();
+                genreIds = textWork.getGenreIds();
+                publisher = textWork.getPublisher();
+                authors = textWork.getAuthors();
+                year = textWork.getYear();
+            }
         }
     }
 

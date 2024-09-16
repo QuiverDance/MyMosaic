@@ -28,37 +28,34 @@ public class WorkTypeConverter {
         WorkDto workDto = null;
 
         // categoryId에 따라 적절한 서브 타입으로 변환
-        if(work.getCategoryId().equals(WorkCategoryConst.VIDEO)){
-            VideoWork videoWork = (VideoWork)work;
-            List<String> loadedImages = fileManger.loadImages(videoWork.getWorkImages());
-            workDto = VideoWorkDto.builder()
-                    .subCategoryId(videoWork.getSubCategoryId())
-                    .genreIds(videoWork.getGenreIds())
-                    .performers(videoWork.getPerformers())
-                    .production(videoWork.getProduction())
-                    .workImages(videoWork.getWorkImages())
-                    .year(videoWork.getYear())
-                    .loadedImages(loadedImages)
-                    .build();
-        }
-        else if(work.getCategoryId().equals(WorkCategoryConst.TEXT)) {
-            TextWork textWork = (TextWork)work;
-            List<String> loadedImages = fileManger.loadImages(textWork.getWorkImages());
-            workDto = TextWorkDto.builder()
-                    .subCategoryId(textWork.getSubCategoryId())
-                    .genreIds(textWork.getGenreIds())
-                    .authors(textWork.getAuthors())
-                    .publisher(textWork.getPublisher())
-                    .workImages(textWork.getWorkImages())
-                    .year(textWork.getYear())
-                    .loadedImages(loadedImages)
-                    .build();
-        }
-        else if(work.getCategoryId().equals(WorkCategoryConst.CHARACTER)){
-
-        }
-        else {
-            throw new IllegalArgumentException("Unknown category id: " + work.getCategoryId());
+        switch (work.getCategoryId()){
+            case WorkCategoryConst.VIDEO -> {
+                VideoWork videoWork = (VideoWork)work;
+                List<String> loadedImages = fileManger.loadImages(videoWork.getWorkImages());
+                workDto = VideoWorkDto.builder()
+                        .subCategoryId(videoWork.getSubCategoryId())
+                        .genreIds(videoWork.getGenreIds())
+                        .performers(videoWork.getPerformers())
+                        .production(videoWork.getProduction())
+                        .workImages(videoWork.getWorkImages())
+                        .year(videoWork.getYear())
+                        .loadedImages(loadedImages)
+                        .build();
+            }
+            case WorkCategoryConst.TEXT -> {
+                TextWork textWork = (TextWork)work;
+                List<String> loadedImages = fileManger.loadImages(textWork.getWorkImages());
+                workDto = TextWorkDto.builder()
+                        .subCategoryId(textWork.getSubCategoryId())
+                        .genreIds(textWork.getGenreIds())
+                        .authors(textWork.getAuthors())
+                        .publisher(textWork.getPublisher())
+                        .workImages(textWork.getWorkImages())
+                        .year(textWork.getYear())
+                        .loadedImages(loadedImages)
+                        .build();
+            }
+            default -> throw new IllegalArgumentException("Unknown category id: " + work.getCategoryId());
         }
 
         // 공통 필드 설정
@@ -76,45 +73,42 @@ public class WorkTypeConverter {
 
     public Work convertToWork(WorkAddForm form, Long memberId) throws IOException {
         Work work = null;
-        if(form.getCategoryId().equals(WorkCategoryConst.VIDEO)){
-            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
-            work = VideoWork.builder()
-                    .memberId(memberId)
-                    .categoryId(form.getCategoryId())
-                    .visibility(form.getVisibility())
-                    .name(form.getName())
-                    .content(form.getContent())
-                    .rating(form.getRating())
-                    .subCategoryId(form.getSubCategoryId())
-                    .genreIds(form.getGenreIds())
-                    .production(form.getProduction())
-                    .performers(form.getPerformers())
-                    .year(form.getYear())
-                    .workImages(uploadFiles)
-                    .build();
-        }
-        else if(form.getCategoryId().equals(WorkCategoryConst.TEXT)){
-            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
-            work = TextWork.builder()
-                    .memberId(memberId)
-                    .categoryId(form.getCategoryId())
-                    .visibility(form.getVisibility())
-                    .name(form.getName())
-                    .content(form.getContent())
-                    .rating(form.getRating())
-                    .subCategoryId(form.getSubCategoryId())
-                    .genreIds(form.getGenreIds())
-                    .publisher(form.getPublisher())
-                    .authors(form.getAuthors())
-                    .year(form.getYear())
-                    .workImages(uploadFiles)
-                    .build();
-        }
-        else if(form.getCategoryId().equals(WorkCategoryConst.CHARACTER)){
-
-        }
-        else{
-            throw new IllegalArgumentException("Invalid categoryId");
+        switch (form.getCategoryId()) {
+            case WorkCategoryConst.VIDEO -> {
+                List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+                work = VideoWork.builder()
+                        .memberId(memberId)
+                        .categoryId(form.getCategoryId())
+                        .visibility(form.getVisibility())
+                        .name(form.getName())
+                        .content(form.getContent())
+                        .rating(form.getRating())
+                        .subCategoryId(form.getSubCategoryId())
+                        .genreIds(form.getGenreIds())
+                        .production(form.getProduction())
+                        .performers(form.getPerformers())
+                        .year(form.getYear())
+                        .workImages(uploadFiles)
+                        .build();
+            }
+            case WorkCategoryConst.TEXT -> {
+                List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+                work = TextWork.builder()
+                        .memberId(memberId)
+                        .categoryId(form.getCategoryId())
+                        .visibility(form.getVisibility())
+                        .name(form.getName())
+                        .content(form.getContent())
+                        .rating(form.getRating())
+                        .subCategoryId(form.getSubCategoryId())
+                        .genreIds(form.getGenreIds())
+                        .publisher(form.getPublisher())
+                        .authors(form.getAuthors())
+                        .year(form.getYear())
+                        .workImages(uploadFiles)
+                        .build();
+            }
+            default -> throw new IllegalArgumentException("Invalid categoryId");
         }
         return work;
     }

@@ -19,6 +19,7 @@ public class WorkSearchAndSortForm {
     Integer subcategoryId;
     List<Integer> genreIds;
     public WorkSearchAndSortParam toParam(){
+        System.out.println("text ::: " + categoryId);
         return WorkSearchAndSortParam.builder()
                 .keyword(keyword)
                 .categoryId(categoryId != null && categoryId.equals(WorkCategoryConst.ALL) ? null : categoryId)

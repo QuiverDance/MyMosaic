@@ -48,16 +48,15 @@ public class WorkService {
     }
 
     public void editWork(WorkEditForm form, Long workId, Integer categoryId) throws IOException {
-        if(categoryId.equals(WorkCategoryConst.VIDEO)) {
-            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
-            workRepository.update(workId, categoryId, form.toVideoEditParam(uploadFiles));
-        }
-        else if(categoryId.equals(WorkCategoryConst.TEXT)) {
-            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
-            workRepository.update(workId, categoryId, form.toTextEditParam(uploadFiles));
-        }
-        else if(categoryId.equals(WorkCategoryConst.CHARACTER)) {
-
+        switch (categoryId){
+            case WorkCategoryConst.VIDEO -> {
+                List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+                workRepository.update(workId, categoryId, form.toVideoEditParam(uploadFiles));
+            }
+            case WorkCategoryConst.TEXT -> {
+                List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+                workRepository.update(workId, categoryId, form.toTextEditParam(uploadFiles));
+            }
         }
     }
 
