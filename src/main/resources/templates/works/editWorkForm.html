@@ -40,8 +40,11 @@
         </div>
 
         <div th:switch="${categoryId}">
-            <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}"
-                 th:replace="~{works/fragments/videoWorkEditFormFragment :: formFields}">
+            <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}">
+                <div th:replace="~{works/fragments/videoWorkEditFormFragment :: formFields}"></div>
+            </div>
+            <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).TEXT}">
+                <div th:replace="~{works/fragments/textWorkEditFormFragment :: formFields}"></div>
             </div>
         </div>
 

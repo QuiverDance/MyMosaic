@@ -4,8 +4,10 @@ import com.mymosaic.common.constant.FileDirConst;
 import com.mymosaic.common.file.FileManger;
 import com.mymosaic.common.file.UploadFile;
 import com.mymosaic.hall.constant.WorkCategoryConst;
+import com.mymosaic.hall.domain.TextWork;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
+import com.mymosaic.hall.dto.TextWorkDto;
 import com.mymosaic.hall.dto.VideoWorkDto;
 import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.web.WorkAddForm;
@@ -40,7 +42,17 @@ public class WorkTypeConverter {
                     .build();
         }
         else if(work.getCategoryId().equals(WorkCategoryConst.TEXT)) {
-
+            TextWork textWork = (TextWork)work;
+            List<String> loadedImages = fileManger.loadImages(textWork.getWorkImages());
+            workDto = TextWorkDto.builder()
+                    .subCategoryId(textWork.getSubCategoryId())
+                    .genreIds(textWork.getGenreIds())
+                    .authors(textWork.getAuthors())
+                    .publisher(textWork.getPublisher())
+                    .workImages(textWork.getWorkImages())
+                    .year(textWork.getYear())
+                    .loadedImages(loadedImages)
+                    .build();
         }
         else if(work.getCategoryId().equals(WorkCategoryConst.CHARACTER)){
 
@@ -80,6 +92,26 @@ public class WorkTypeConverter {
                     .year(form.getYear())
                     .workImages(uploadFiles)
                     .build();
+        }
+        else if(form.getCategoryId().equals(WorkCategoryConst.TEXT)){
+            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+            work = TextWork.builder()
+                    .memberId(memberId)
+                    .categoryId(form.getCategoryId())
+                    .visibility(form.getVisibility())
+                    .name(form.getName())
+                    .content(form.getContent())
+                    .rating(form.getRating())
+                    .subCategoryId(form.getSubCategoryId())
+                    .genreIds(form.getGenreIds())
+                    .publisher(form.getPublisher())
+                    .authors(form.getAuthors())
+                    .year(form.getYear())
+                    .workImages(uploadFiles)
+                    .build();
+        }
+        else if(form.getCategoryId().equals(WorkCategoryConst.CHARACTER)){
+
         }
         else{
             throw new IllegalArgumentException("Invalid categoryId");

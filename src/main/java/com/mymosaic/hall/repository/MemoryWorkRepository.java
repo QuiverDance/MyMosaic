@@ -2,8 +2,10 @@ package com.mymosaic.hall.repository;
 
 import com.mymosaic.common.constant.SortConst;
 import com.mymosaic.hall.constant.WorkCategoryConst;
+import com.mymosaic.hall.domain.TextWork;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
+import com.mymosaic.hall.dto.TextWorkEditParam;
 import com.mymosaic.hall.dto.VideoWorkEditParam;
 import com.mymosaic.hall.dto.WorkEditParam;
 import com.mymosaic.hall.dto.WorkSearchAndSortParam;
@@ -88,11 +90,19 @@ public class MemoryWorkRepository implements WorkRepository{
     public void update(Long id, Integer categoryId, WorkEditParam param) {
         Work newWork = null;
         if(categoryId.equals(WorkCategoryConst.VIDEO)){
-            VideoWork work = (VideoWork)findById(id);
-            VideoWorkEditParam p = (VideoWorkEditParam)param;
+            VideoWork work = (VideoWork) findById(id);
+            VideoWorkEditParam p = (VideoWorkEditParam) param;
             work.updateVideoWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
                     p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getProduction(),
                     p.getPerformers(), p.getYear());
+            newWork = work;
+        }
+        if(categoryId.equals(WorkCategoryConst.TEXT)){
+            TextWork work = (TextWork) findById(id);
+            TextWorkEditParam p = (TextWorkEditParam) param;
+            work.updateTextWorkInfo(p.getVisibility(), p.getName(), p.getContent(), p.getRating(),
+                    p.getSubCategoryId(), p.getGenreIds(), p.getWorkImageFiles(), p.getPublisher(),
+                    p.getAuthors(), p.getYear());
             newWork = work;
         }
         if(newWork != null){

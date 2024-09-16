@@ -1,5 +1,6 @@
 package com.mymosaic.hall.web;
 
+import com.mymosaic.common.file.UploadFile;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -33,4 +34,9 @@ public class WorkAddForm {
     private List<String> performers = new ArrayList<>();
     private Integer year;
     private List<MultipartFile> workImageFiles = new ArrayList<>();
+
+    private List<UploadFile> workImages;
+    private List<String> loadedImages;
+    private String publisher;
+    private List<String> authors;
 }

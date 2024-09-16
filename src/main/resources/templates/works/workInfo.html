@@ -13,28 +13,13 @@
     <p><strong>내용:</strong> <span th:text="${work.content}">내용</span></p>
     <p><strong>평점:</strong> <span th:text="${work.rating}">평점</span></p>
 
-    <!-- 추가적인 작품 정보 표시 -->
-    <div th:if="${work instanceof T(com.mymosaic.hall.dto.VideoWorkDto)}">
-        <p><strong>세부 카테고리:</strong> <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getSubCategoryName(work.subCategoryId)}">카테고리</span></p>
-        <div class="image-gallery">
-            <div th:each="file : ${work.loadedImages}" class="image-item">
-                <img th:src="${file} == null ? _ : @{'data:image/png;base64,'+${file}}"
-                     alt="Work Image" class="thumbnail"/>
-                <div class="overlay">+</div>
-            </div>
+    <div th:switch="${work.categoryId}">
+        <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}">
+            <div th:replace="~{works/fragments/videoWorkInfoFragment :: formFields}"></div>
         </div>
-        <p><strong>장르:</strong>
-        <div th:each="genreId : ${work.genreIds}">
-            <span th:text="${T(com.mymosaic.hall.common.WorkConstantMapper).getGenreName(genreId)}">카테고리</span>
+        <div th:case="${T(com.mymosaic.hall.constant.WorkCategoryConst).TEXT}">
+            <div th:replace="~{works/fragments/textWorkInfoFragment :: formFields}"></div>
         </div>
-        </p>
-        <p><strong>출연자 목록:</strong>
-        <div th:each="performer : ${work.performers}">
-            <span th:text="${performer}">출연자</span>
-        </div>
-        </p>
-        <p><strong>제작사:</strong> <span th:text="${work.production}">제작사</span></p>
-        <p><strong>상영 년도:</strong> <span th:text="${work.year}">상영 년도</span></p>
     </div>
 
     <div class="button-container">

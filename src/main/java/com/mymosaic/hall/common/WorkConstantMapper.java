@@ -7,36 +7,34 @@ import com.mymosaic.hall.constant.WorkSubcategoryConst;
 public class WorkConstantMapper {
 
     public static String getCategoryName(Integer categoryId) {
-        if(categoryId.equals(WorkCategoryConst.VIDEO))
-            return "Video Work";
-        else if(categoryId.equals(WorkCategoryConst.TEXT))
-            return "Text Work";
-        else if(categoryId.equals(WorkCategoryConst.CHARACTER))
-            return "Character Work";
-        return "Null Category";
+        return switch (categoryId){
+            case WorkCategoryConst.VIDEO -> "영상 작품";
+            case WorkCategoryConst.TEXT -> "텍스트 작품";
+            case WorkCategoryConst.CHARACTER -> "인물";
+            default ->  "Null Category";
+        };
     }
 
     public static String getSubCategoryName(Integer subCategoryId){
-        if(subCategoryId.equals(WorkSubcategoryConst.MOVIE))
-            return "Movie";
-        else if(subCategoryId.equals(WorkSubcategoryConst.DRAMA))
-            return "Drama";
-        else if(subCategoryId.equals(WorkSubcategoryConst.ANIMATION))
-            return "Animation";
-        return "Null Subcategory";
+        return switch (subCategoryId){
+            case WorkSubcategoryConst.MOVIE -> "영화";
+            case WorkSubcategoryConst.DRAMA -> "드라마";
+            case WorkSubcategoryConst.ANIMATION -> "애니메이션";
+            case WorkSubcategoryConst.NOVEL -> "소설";
+            case WorkSubcategoryConst.POETRY -> "시";
+            case WorkSubcategoryConst.ESSAY -> "수필";
+            default -> "Null Subcategory";
+        };
     }
 
     public static String getGenreName(Integer genreId){
-        if(genreId.equals(WorkGenreConst.ACTION))
-            return "Action";
-        else if(genreId.equals(WorkGenreConst.FANTASY))
-            return "Fantasy";
-        else if(genreId.equals(WorkGenreConst.SF))
-            return "SF";
-        else if(genreId.equals(WorkGenreConst.COMEDY))
-            return "Comedy";
-        else if(genreId.equals(WorkGenreConst.HORROR))
-            return "Horror";
-        return "Null Genre";
+        return switch (genreId){
+            case WorkGenreConst.ACTION -> "액션";
+            case WorkGenreConst.FANTASY -> "판타지";
+            case WorkGenreConst.SF -> "SF";
+            case WorkGenreConst.COMEDY -> "코메디";
+            case WorkGenreConst.HORROR -> "공포";
+            default -> "Null Genre";
+        };
     }
 }

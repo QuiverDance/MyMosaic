@@ -51,6 +51,12 @@ public class WorkService {
         if(categoryId.equals(WorkCategoryConst.VIDEO)) {
             List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
             workRepository.update(workId, categoryId, form.toVideoEditParam(uploadFiles));
+        }
+        else if(categoryId.equals(WorkCategoryConst.TEXT)) {
+            List<UploadFile> uploadFiles = fileManger.storeFiles(FileDirConst.WORK_DIR, form.getWorkImageFiles());
+            workRepository.update(workId, categoryId, form.toTextEditParam(uploadFiles));
+        }
+        else if(categoryId.equals(WorkCategoryConst.CHARACTER)) {
 
         }
     }

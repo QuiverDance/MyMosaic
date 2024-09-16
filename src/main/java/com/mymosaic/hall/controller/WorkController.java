@@ -40,6 +40,10 @@ public class WorkController {
             model.addAttribute("categoryId", categoryId);
             return "works/fragments/videoWorkAddFormFragment :: formFields";
         }
+        else if(categoryId.equals(WorkCategoryConst.TEXT)){
+            model.addAttribute("categoryId", categoryId);
+            return "works/fragments/textWorkAddFormFragment :: formFields";
+        }
         else{
             throw new IllegalArgumentException("Invalid category");
         }
@@ -73,7 +77,6 @@ public class WorkController {
                               @PathVariable("workId") Long workId,
                               Model model) throws IOException {
         WorkDto work = workService.findWorkById(workId);
-
         model.addAttribute("work", work);
         model.addAttribute("isOwner", isOwner);
         return "works/workInfo";
