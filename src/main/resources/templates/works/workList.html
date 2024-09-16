@@ -4,6 +4,35 @@
     <meta charset="utf-8">
     <title>작품 목록</title>
     <link th:href="@{/css/workListStyle.css}" rel="stylesheet" />
+    <script>
+        function toggleFields() {
+            const categorySelect = document.querySelector('select[name="categoryId"]');
+            const videoFields = document.getElementById('video-fields');
+            const textFields = document.getElementById('text-fields');
+            const characterFields = document.getElementById('character-fields');
+
+            console.log("Category changed to:", categorySelect.value);
+
+            // 모든 필드 숨기기
+            videoFields.style.display = 'none';
+            textFields.style.display = 'none';
+            characterFields.style.display = 'none';
+
+            // 선택된 카테고리에 따라 필드 표시
+            if (categorySelect.value === '1') {
+                videoFields.style.display = 'block';
+            } else if (categorySelect.value === '2') {
+                textFields.style.display = 'block';
+            } else if (categorySelect.value === '3') {
+                characterFields.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleFields(); // 페이지 로드 시 초기 설정
+            document.querySelector('select[name="categoryId"]').addEventListener('change', toggleFields);
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -18,6 +47,59 @@
             작품 추가
         </button>
     </div>
+
+    <form action="" th:action="@{/works/{memberId}(memberId=${memberId})}" th:object="${form}" method="get" class="search-form">
+        <input type="text" name="keyword" placeholder="이름 검색" th:field="*{keyword}" class="form-control" />
+
+        <select name="categoryId" th:field="*{categoryId}" class="form-control" id="category-select">
+            <option value="" disabled selected>카테고리 선택</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).ALL}">전체</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).VIDEO}">영상 작품</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).TEXT}">텍스트 작품</option>
+            <option th:value="${T(com.mymosaic.hall.constant.WorkCategoryConst).CHARACTER}">인물</option>
+        </select>
+
+        <select name="sortBy" th:field="*{sortBy}" class="form-control">
+            <option th:value="${T(com.mymosaic.common.constant.SortConst).NAME}">이름 순</option>
+            <option th:value="${T(com.mymosaic.common.constant.SortConst).CREATED_TIME}">등록 순</option>
+            <option th:value="${T(com.mymosaic.common.constant.SortConst).RATING}">평점 순</option>
+        </select>
+        <select name="sortDir" th:field="*{sortDir}" class="form-control">
+            <option th:value="${T(com.mymosaic.common.constant.SortConst).ASC}">오름차순</option>
+            <option th:value="${T(com.mymosaic.common.constant.SortConst).DESC}">내림차순</option>
+        </select>
+
+        <!--영상 작품-->
+        <div id="video-fields" style="display: none;">
+            <input type="text" name="year" placeholder="년 (YYYY)" th:field="*{year}" class="form-control" />
+            <select name="subcategoryId" th:field="*{subcategoryId}" class="form-control">
+                <option value="" disabled selected>세부 카테고리 선택</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ALL}">전체</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).MOVIE}">영화</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).DRAMA}">드라마</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkSubcategoryConst).ANIMATION}">애니메이션</option>
+            </select>
+            <select th:field="*{genreIds}" id="genreIds" name="genreIds" class="form-control" multiple size="5">
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).ACTION}">액션</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).FANTASY}">판타지</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).SF}">SF</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).COMEDY}">코메디</option>
+                <option th:value="${T(com.mymosaic.hall.constant.WorkGenreConst).HORROR}">공포</option>
+            </select>
+        </div>
+        <!--텍스트 작품-->
+        <div id="text-fields" style="display: none;">
+            <!--            <input type="text" name="author" placeholder="작가명" th:field="*{author}" class="form-control" />-->
+            <!--            <textarea name="content" placeholder="내용" th:field="*{content}" class="form-control"></textarea>-->
+        </div>
+        <!--인물-->
+        <div id="character-fields" style="display: none;">
+            <!--            <input type="text" name="characterName" placeholder="인물 이름" th:field="*{characterName}" class="form-control" />-->
+            <!--            <input type="text" name="role" placeholder="역할" th:field="*{role}" class="form-control" />-->
+        </div>
+
+        <button type="submit" class="btn">검색 및 정렬</button>
+    </form>
 
     <div class="grid-container">
         <div th:each="work : ${works}" class="grid-item" th:if="${work.visibility} or ${isOwner}">

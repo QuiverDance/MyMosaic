@@ -1,5 +1,6 @@
 package com.mymosaic.hall.repository;
 
+import com.mymosaic.common.constant.SortConst;
 import com.mymosaic.hall.constant.WorkCategoryConst;
 import com.mymosaic.hall.domain.VideoWork;
 import com.mymosaic.hall.domain.Work;
@@ -9,6 +10,7 @@ import com.mymosaic.hall.dto.WorkSearchAndSortParam;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,7 +37,46 @@ public class MemoryWorkRepository implements WorkRepository{
     public List<Work> findByMemberId(Long memberId, WorkSearchAndSortParam param) {
         return findAll().stream()
                 .filter(w -> w.getMemberId().equals(memberId))
+                .filter(w -> {
+                    boolean matches = true;
+                    if (param.getKeyword() != null && !param.getKeyword().isEmpty()) { //검색 키워드가 존재하는 경우
+                        matches = w.getName().toLowerCase().contains(param.getKeyword().toLowerCase()); //대소문자 구분x
+                    }
+                    if (param.getCategoryId() != null) {
+                        matches = matches && w.getCategoryId().equals(param.getCategoryId());
+                        if(matches && param.getCategoryId().equals(WorkCategoryConst.VIDEO)){
+                            VideoWork videoWork = (VideoWork) w;
+                            if(param.getSubcategoryId() != null){
+                                matches = matches && param.getSubcategoryId().equals(videoWork.getSubCategoryId());
+                            }
+                            if(param.getYear() != null){
+                                matches = matches && param.getYear().equals(videoWork.getYear());
+                            }
+                            if(param.getGenreIds() != null && !param.getGenreIds().isEmpty()){
+                                for (Integer genre : param.getGenreIds()) {
+                                    matches = matches && videoWork.getGenreIds().contains(genre);
+                                }
+                            }
+                        }
+                    }
+                    return matches;
+                })
+                .sorted(getComparator(param.getSortBy(), param.getSortDir()))
                 .toList();
+    }
+
+    private Comparator<Work> getComparator(String sortBy, String sortDir) {
+        Comparator<Work> comparator = switch (sortBy) {
+            case SortConst.RATING -> Comparator.comparing(Work::getRating);
+            case SortConst.NAME -> Comparator.comparing(Work::getName);
+            default -> Comparator.comparing(Work::getCreatedTime);
+        };
+
+        if ("desc".equalsIgnoreCase(sortDir)) {
+            comparator = comparator.reversed();
+        }
+
+        return comparator;
     }
 
     @Override

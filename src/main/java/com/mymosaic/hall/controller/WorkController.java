@@ -1,11 +1,11 @@
 package com.mymosaic.hall.controller;
 
 import com.mymosaic.hall.constant.WorkCategoryConst;
-import com.mymosaic.hall.domain.Work;
 import com.mymosaic.hall.dto.WorkDto;
 import com.mymosaic.hall.service.WorkService;
 import com.mymosaic.hall.web.WorkAddForm;
 import com.mymosaic.hall.web.WorkEditForm;
+import com.mymosaic.hall.web.WorkSearchAndSortForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,9 +56,10 @@ public class WorkController {
 
     @GetMapping
     public String getWorks(@PathVariable("memberId") Long memberId,
+                           @ModelAttribute("form") WorkSearchAndSortForm form,
                            @RequestAttribute("isOwner") Boolean isOwner,
                            Model model) throws IOException {
-        List<WorkDto> works = workService.findWorksByMemberId(memberId);
+        List<WorkDto> works = workService.findWorksByMemberId(memberId, form);
         log.info("works = {}", works.size());
 
         model.addAttribute("works", works);

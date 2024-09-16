@@ -12,6 +12,7 @@ import com.mymosaic.hall.dto.WorkSearchAndSortParam;
 import com.mymosaic.hall.repository.WorkRepository;
 import com.mymosaic.hall.web.WorkAddForm;
 import com.mymosaic.hall.web.WorkEditForm;
+import com.mymosaic.hall.web.WorkSearchAndSortForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,8 @@ public class WorkService {
         return workTypeConverter.convertToDto(workRepository.findById(id));
     }
 
-    public List<WorkDto> findWorksByMemberId(Long memberId){
-        return workRepository.findByMemberId(memberId, new WorkSearchAndSortParam())
+    public List<WorkDto> findWorksByMemberId(Long memberId, WorkSearchAndSortForm form){
+        return workRepository.findByMemberId(memberId, form.toParam())
                 .stream().map(w -> {
                     try {
                         return workTypeConverter.convertToDto(w);

@@ -47,7 +47,7 @@ class WorkServiceTest {
         workService.saveWork(workAddForm2, 1L);
 
         //when
-        List<WorkDto> worksByMemberId = workService.findWorksByMemberId(1L);
+        List<WorkDto> worksByMemberId = workService.findWorksByMemberId(1L, null);
         List<VideoWorkDto> videoWorkDtoList = worksByMemberId.stream().map(w -> (VideoWorkDto)w).toList();
 
         //then
